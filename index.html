@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vee — Food, Delivered Differently</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9963A;
+      --gold-light: #E8BC6A;
+      --gold-dim: #8A6325;
+      --burgundy: #7B1F3A;
+      --burg-deep: #4A0E1F;
+      --ink: #0D0B09;
+      --ink-2: #17130F;
+      --ink-3: #211C16;
+      --warm-white: #F5EFE6;
+      --warm-gray: #9A8E82;
+      --warm-gray-2: #6B6158;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--ink);
+      color: var(--warm-white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201, 150, 58, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), width 0.3s, height 0.3s, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    body:hover .cursor { opacity: 1; }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 60px;
+      mix-blend-mode: normal;
+    }
+    nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,11,9,0.9) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .nav-logo {
+      font-family: 'Satisfy', cursive;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--burgundy) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      position: relative;
+      z-index: 1;
+    }
+    .nav-links a {
+      color: var(--warm-gray);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      border: 1px solid rgba(201, 150, 58, 0.4);
+      color: var(--gold);
+      padding: 10px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .nav-cta:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(123,31,58,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,150,58,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 50% 10%, rgba(74,14,31,0.25) 0%, transparent 70%);
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(123,31,58,0.22) 0%, transparent 70%);
+      right: -100px; top: -100px;
+      animation-delay: 0s;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,150,58,0.1) 0%, transparent 70%);
+      left: 5%; bottom: 10%;
+      animation-delay: -4s;
+    }
+    @keyframes drift {
+      0% { transform: translate(0,0) scale(1); }
+      100% { transform: translate(30px, 20px) scale(1.05); }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 40px;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+    .hero-wordmark {
+      font-family: 'Satisfy', cursive;
+      font-size: clamp(6rem, 18vw, 14rem);
+      line-height: 0.85;
+      background: linear-gradient(135deg, var(--warm-white) 0%, var(--gold-light) 30%, var(--gold) 55%, var(--burgundy) 85%, var(--burg-deep) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+    }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(245,239,230,0.6);
+      letter-spacing: 0.04em;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%);
+      color: var(--ink);
+      border: none;
+      padding: 16px 48px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(201, 150, 58, 0.3);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--warm-gray);
+      border: 1px solid rgba(154,142,130,0.25);
+      padding: 16px 48px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: color 0.3s, border-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost:hover { color: var(--warm-white); border-color: rgba(245,239,230,0.3); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    .scroll-text {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===== MARQUEE ===== */
+    .marquee-section {
+      border-top: 1px solid rgba(201,150,58,0.1);
+      border-bottom: 1px solid rgba(201,150,58,0.1);
+      padding: 18px 0;
+      overflow: hidden;
+      background: rgba(201,150,58,0.03);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 40px;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .marquee-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      opacity: 0.5;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ===== INTRO ===== */
+    .intro-section {
+      padding: 140px 60px 120px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold-dim);
+    }
+    .intro-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--warm-white);
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+    .intro-headline em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .intro-body {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--warm-gray);
+      max-width: 540px;
+      margin-bottom: 56px;
+    }
+    .intro-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 540px;
+      border: 1px solid rgba(201,150,58,0.12);
+    }
+    .stat-item {
+      padding: 28px 24px;
+      border-right: 1px solid rgba(201,150,58,0.12);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+    }
+
+    /* ===== PHILOSOPHY ===== */
+    .philosophy-section {
+      padding: 100px 60px;
+      background: var(--ink-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .philosophy-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,31,58,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .philosophy-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--warm-white);
+      position: relative;
+      padding-left: 32px;
+    }
+    .philosophy-quote::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), var(--burgundy));
+    }
+    .philosophy-right { }
+    .philosophy-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .pill {
+      border: 1px solid rgba(201,150,58,0.2);
+      padding: 8px 20px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .pill:hover { border-color: var(--gold); color: var(--gold); }
+    .philosophy-body {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--warm-gray);
+    }
+
+    /* ===== FEATURES ===== */
+    .features-section {
+      padding: 120px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(201,150,58,0.08);
+      border: 1px solid rgba(201,150,58,0.08);
+      margin-top: 60px;
+    }
+    .feature-card {
+      background: var(--ink);
+      padding: 52px 40px;
+      transition: background 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,150,58,0.3), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+    .feature-card:hover { background: var(--ink-2); }
+    .feature-card:hover::after { transform: scaleX(1); }
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+      opacity: 0.6;
+    }
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .feature-desc {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--warm-gray);
+    }
+    .feature-num {
+      position: absolute;
+      top: 24px; right: 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      color: rgba(201,150,58,0.2);
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== COMING SOON ===== */
+    .coming-section {
+      padding: 120px 60px;
+      background: var(--ink-2);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .coming-section::before {
+      content: 'vee';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Satisfy', cursive;
+      font-size: 28vw;
+      color: rgba(201,150,58,0.025);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .coming-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .coming-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .coming-sub {
+      font-size: 0.95rem;
+      color: var(--warm-gray);
+      line-height: 1.8;
+      margin-bottom: 52px;
+    }
+    .notify-form {
+      display: flex;
+      gap: 0;
+      max-width: 440px;
+      margin: 0 auto 24px;
+    }
+    .notify-input {
+      flex: 1;
+      background: rgba(245,239,230,0.04);
+      border: 1px solid rgba(201,150,58,0.2);
+      border-right: none;
+      color: var(--warm-white);
+      padding: 14px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .notify-input::placeholder { color: var(--warm-gray); opacity: 0.5; }
+    .notify-input:focus { border-color: var(--gold-dim); }
+    .notify-btn {
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      color: var(--ink);
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+    .notify-btn:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .notify-note {
+      font-size: 0.72rem;
+      color: rgba(154,142,130,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* ===== CITIES ===== */
+    .cities-section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .cities-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 48px;
+    }
+    .city-tag {
+      border: 1px solid rgba(201,150,58,0.12);
+      padding: 12px 24px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      color: var(--warm-gray);
+      position: relative;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .city-tag.active {
+      border-color: rgba(201,150,58,0.4);
+      color: var(--gold);
+    }
+    .city-tag.active::before {
+      content: '●';
+      margin-right: 8px;
+      font-size: 0.5rem;
+      vertical-align: middle;
+    }
+    .city-tag.soon { opacity: 0.4; }
+    .city-tag.soon::after {
+      content: 'soon';
+      margin-left: 8px;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(154,142,130,0.4);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid rgba(201,150,58,0.08);
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-logo {
+      font-family: 'Satisfy', cursive;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--burgundy) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(154,142,130,0.4);
+      letter-spacing: 0.06em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(154,142,130,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-dim); }
+
+    /* ===== REVEAL ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .intro-section, .features-section, .cities-section { padding: 80px 24px; }
+      .philosophy-section { padding: 80px 24px; }
+      .philosophy-inner { grid-template-columns: 1fr; gap: 48px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .coming-section { padding: 80px 24px; }
+      footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+      .intro-stats { grid-template-columns: 1fr 1fr 1fr; }
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">vee</a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#why">Why Vee</a></li>
+      <li><a href="#cities">Cities</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.querySelector('.notify-input').focus(); document.querySelector('.coming-section').scrollIntoView({behavior:'smooth'})">Get Early Access</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">A new kind of food delivery</p>
+      <span class="hero-wordmark">vee</span>
+      <p class="hero-tagline">Where every order tells a story worth savoring.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary" onclick="document.querySelector('.coming-section').scrollIntoView({behavior:'smooth'}); return false;">Join the Waitlist</a>
+        <a href="#story" class="btn-ghost">Our Story</a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item">Curated Restaurants <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Live Kitchen Tracking <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Chef's Specials <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Flat ₹1,500/month. No More. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Zero Commission. Ever. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Driver-First Philosophy <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Taste-Forward Curation <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Curated Restaurants <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Live Kitchen Tracking <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Flat ₹1,500/month. No More. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Zero Commission. Ever. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Driver-First Philosophy <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Taste-Forward Curation <span class="marquee-dot"></span></div>
+    </div>
+  </div>
+
+  <!-- INTRO / STORY -->
+  <section class="intro-section" id="story">
+    <div class="section-label reveal">Our beginning</div>
+    <h2 class="intro-headline reveal">
+      Food is more than fuel.<br/>
+      It's <em>feeling, memory,</em><br/>
+      and connection.
+    </h2>
+    <p class="intro-body reveal">
+      We built Vee because we believed delivery could be more than a transaction. 
+      Every meal has a kitchen behind it, a chef with intent, and a diner with expectations. 
+      We exist to honor all three — with care baked into every layer.
+    </p>
+    <div class="intro-stats reveal">
+      <div class="stat-item">
+        <div class="stat-num">₹1,500</div>
+        <div class="stat-label">Flat monthly fee</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">0%</div>
+        <div class="stat-label">Commission taken</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Revenue yours to keep</div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy-section">
+    <div class="philosophy-inner">
+      <blockquote class="philosophy-quote reveal">
+        "The best delivery experience is one you forget was even delivery."
+      </blockquote>
+      <div class="philosophy-right">
+        <div class="philosophy-pills reveal">
+          <span class="pill">Ethically sourced</span>
+          <span class="pill">Local first</span>
+          <span class="pill">Zero commission model</span>
+          <span class="pill">Flat ₹1,500/month</span>
+          <span class="pill">Fair driver pay</span>
+        </div>
+        <p class="philosophy-body reveal">
+          We partner only with restaurants that cook with integrity — places where 
+          the owner knows their suppliers by name. We believe the people who bring 
+          food to your door deserve dignity, fair compensation, and respect. 
+          These aren't policies. They're principles we won't negotiate on.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features-section" id="why">
+    <div class="section-label reveal">Why Vee is different</div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-num">01</div>
+        <div class="feature-icon">✦</div>
+        <h3 class="feature-title">Taste-forward curation</h3>
+        <p class="feature-desc">Every restaurant on Vee is handpicked. We eat there before we list them. If it doesn't move us, it doesn't make the cut.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">02</div>
+        <div class="feature-icon">◈</div>
+        <h3 class="feature-title">Live kitchen pulse</h3>
+        <p class="feature-desc">Know exactly when your food enters the oven, when it leaves the kitchen, and who's bringing it to you — with a real name and face.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">03</div>
+        <div class="feature-icon">◎</div>
+        <h3 class="feature-title">Flat subscription. Zero commission.</h3>
+        <p class="feature-desc">Restaurants pay a flat &#8377;1,500/month &#8212; and not a rupee more. We take zero commission on orders. Your revenue is yours, fully.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">04</div>
+        <div class="feature-icon">⬡</div>
+        <h3 class="feature-title">Driver-first model</h3>
+        <p class="feature-desc">Our delivery partners earn above market, choose their hours, and are never penalized for honesty. A happy delivery partner means your food arrives with care.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">05</div>
+        <div class="feature-icon">◇</div>
+        <h3 class="feature-title">Chef's daily edits</h3>
+        <p class="feature-desc">A rotating section of specials, experiments, and limited-run dishes that you won't find anywhere else. Updated every morning.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">06</div>
+        <div class="feature-icon">∴</div>
+        <h3 class="feature-title">Zero waste packaging</h3>
+        <p class="feature-desc">We partner only with restaurants committed to sustainable packaging. Every order is a small step in the right direction.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMING SOON / NOTIFY -->
+  <section class="coming-section">
+    <div class="coming-inner">
+      <div class="section-label reveal" style="justify-content: center;">Launching soon</div>
+      <h2 class="coming-title reveal">Be the first to taste it.</h2>
+      <p class="coming-sub reveal">We're putting the final touches on something we're genuinely proud of. Drop your email and you'll be the first to know when Vee arrives in your city.</p>
+      <div class="notify-form reveal">
+        <input type="email" class="notify-input" placeholder="your@email.com" />
+        <button class="notify-btn" onclick="handleNotify()">Notify me</button>
+      </div>
+      <p class="notify-note reveal">No spam. No newsletters. Just one email when we go live.</p>
+    </div>
+  </section>
+
+  <!-- CITIES -->
+  <section class="cities-section" id="cities">
+    <div class="section-label reveal">Where we're going</div>
+    <h2 class="intro-headline reveal" style="max-width: 480px;">Starting in India's most food-obsessed cities.</h2>
+    <div class="cities-row reveal">
+      <div class="city-tag active">Bengaluru</div>
+      <div class="city-tag active">Delhi NCR</div>
+      <div class="city-tag soon">Mumbai</div>
+      <div class="city-tag soon">Hyderabad</div>
+      <div class="city-tag soon">Chennai</div>
+      <div class="city-tag soon">Pune</div>
+      <div class="city-tag soon">Kolkata</div>
+      <div class="city-tag soon">Ahmedabad</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">vee</span>
+    <ul class="footer-links">
+      <li><a href="#">Careers</a></li>
+      <li><a href="#">Partner with us</a></li>
+      <li><a href="#">Privacy</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Vee. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    document.querySelectorAll('a, button, .pill, .city-tag, .feature-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width = '56px';
+        ring.style.height = '56px';
+        ring.style.borderColor = 'rgba(201,150,58,0.7)';
+        cursor.style.transform = 'translate(-50%,-50%) scale(1.5)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(201,150,58,0.4)';
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      observer.observe(el);
+    });
+
+    function handleNotify() {
+      const input = document.querySelector('.notify-input');
+      const btn = document.querySelector('.notify-btn');
+      if (!input.value || !input.value.includes('@')) {
+        input.style.borderColor = 'rgba(123,31,58,0.6)';
+        setTimeout(() => input.style.borderColor = 'rgba(201,150,58,0.2)', 1200);
+        return;
+      }
+      btn.textContent = '✓ You\'re in';
+      btn.style.background = 'rgba(201,150,58,0.2)';
+      btn.style.color = 'var(--gold)';
+      btn.style.borderColor = 'rgba(201,150,58,0.3)';
+      input.disabled = true;
+      btn.disabled = true;
+    }
+  </script>
+</body>
+</html>
