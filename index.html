@@ -1,2009 +1,984 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="MahaYukti — India's first private multi-domain professional network. Connect, collaborate, and grow across every domain.">
-<title>MahaYukti — Private Professional Network</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=DM+Sans:wght@200;300;400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-/* ═══════════════════════════════════════════
-   TOKENS
-═══════════════════════════════════════════ */
-:root{
-  --navy:#0B1B3A;--navy2:#0F2347;--navy3:#162d5a;
-  --gold:#C9943A;--gold2:#E8B86D;--gold3:#F5D48A;
-  --cream:#F9F4EC;--white:#fff;
-  --muted:rgba(255,255,255,.42);
-  --border:rgba(201,148,58,.18);--border2:rgba(255,255,255,.07);
-  --red:#e05555;--green:#4caf87;
-  --sans:'DM Sans',sans-serif;
-  --serif:'Cormorant Garamond',serif;
-  --cinzel:'Cinzel',serif;
-  --r:4px;
-}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{font-family:var(--sans);background:var(--navy);color:var(--white);overflow-x:hidden;cursor:none;}
-::-webkit-scrollbar{width:3px;}
-::-webkit-scrollbar-track{background:var(--navy);}
-::-webkit-scrollbar-thumb{background:var(--gold);}
-a{text-decoration:none;color:inherit;}
-img{max-width:100%;}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vee — Food, Delivered Differently</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Satisfy&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ═══════════════════════════════════════════
-   CURSOR
-═══════════════════════════════════════════ */
-.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s;mix-blend-mode:difference;}
-.cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(201,148,58,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+    :root {
+      --gold: #C9963A;
+      --gold-light: #E8BC6A;
+      --gold-dim: #8A6325;
+      --burgundy: #7B1F3A;
+      --burg-deep: #4A0E1F;
+      --ink: #0D0B09;
+      --ink-2: #17130F;
+      --ink-3: #211C16;
+      --warm-white: #F5EFE6;
+      --warm-gray: #9A8E82;
+      --warm-gray-2: #6B6158;
+    }
 
-/* ═══════════════════════════════════════════
-   NAV
-═══════════════════════════════════════════ */
-#nav{position:fixed;top:0;left:0;right:0;z-index:800;padding:26px 64px;display:flex;align-items:center;justify-content:space-between;transition:all .4s;}
-#nav.stuck{padding:14px 64px;background:rgba(11,27,58,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
-.nav-logo{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--white);cursor:pointer;}
-.nav-logo span{color:var(--gold);}
-.nav-links{display:flex;align-items:center;gap:32px;}
-.nav-links a{font-size:11px;font-weight:400;color:rgba(255,255,255,.5);letter-spacing:2px;text-transform:uppercase;transition:color .2s;cursor:pointer;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s;}
-.nav-links a:hover,.nav-links a.active{color:var(--gold);}
-.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
-.nav-cta{background:transparent!important;border:1px solid var(--gold)!important;color:var(--gold)!important;padding:8px 20px;border-radius:2px;font-size:11px!important;letter-spacing:2px!important;transition:background .2s!important;}
-.nav-cta:hover{background:rgba(201,148,58,.1)!important;}
-.nav-cta::after{display:none!important;}
-.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
-.ham span{width:22px;height:1px;background:var(--white);display:block;transition:all .3s;}
+    html { scroll-behavior: smooth; }
 
-/* mobile drawer */
-#mob-nav{position:fixed;top:0;right:-100%;width:260px;height:100vh;background:rgba(11,27,58,.98);backdrop-filter:blur(20px);border-left:1px solid var(--border);z-index:900;display:flex;flex-direction:column;padding:80px 32px 40px;gap:24px;transition:right .35s cubic-bezier(.4,0,.2,1);}
-#mob-nav.open{right:0;}
-#mob-nav a{font-size:13px;color:rgba(255,255,255,.55);letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:color .2s;}
-#mob-nav a:hover{color:var(--gold);}
-#mob-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:850;display:none;}
-#mob-overlay.show{display:block;}
+    body {
+      background: var(--ink);
+      color: var(--warm-white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
 
-/* ═══════════════════════════════════════════
-   PAGE SYSTEM
-═══════════════════════════════════════════ */
-.page{display:none;min-height:100vh;}
-.page.active{display:block;}
+    /* Custom cursor */
+    .cursor {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(201, 150, 58, 0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s cubic-bezier(0.23, 1, 0.32, 1), width 0.3s, height 0.3s, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    body:hover .cursor { opacity: 1; }
 
-/* ═══════════════════════════════════════════
-   SHARED
-═══════════════════════════════════════════ */
-.wrap{max-width:1200px;margin:0 auto;padding:0 64px;}
-.wrap-sm{max-width:860px;margin:0 auto;padding:0 64px;}
-.section{padding:130px 0;}
-.section-sm{padding:80px 0;}
-.eyebrow{font-size:11px;font-weight:500;color:var(--gold);letter-spacing:5px;text-transform:uppercase;margin-bottom:16px;}
-.h1{font-family:var(--serif);font-size:clamp(44px,5.5vw,76px);font-weight:700;line-height:1.06;color:var(--white);}
-.h1 em{color:var(--gold);font-style:italic;}
-.h2{font-family:var(--serif);font-size:clamp(32px,3.8vw,52px);font-weight:700;line-height:1.1;color:var(--white);}
-.h2 em{color:var(--gold);font-style:italic;}
-.h3{font-family:var(--serif);font-size:clamp(24px,2.5vw,36px);font-weight:700;color:var(--white);}
-.body-lg{font-size:17px;font-weight:300;color:var(--muted);line-height:1.82;}
-.body-md{font-size:15px;font-weight:300;color:var(--muted);line-height:1.78;}
-.gold-bar{width:44px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin:18px 0;}
-.accent{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,transparent);}
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
 
-/* cards */
-.card{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);transition:all .3s;}
-.card:hover{background:rgba(201,148,58,.04);border-color:var(--border);}
-.card-lift:hover{transform:translateY(-4px);}
-.card-glow{position:relative;overflow:hidden;}
-.card-glow::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s;}
-.card-glow:hover::before{transform:scaleX(1);}
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 60px;
+      mix-blend-mode: normal;
+    }
+    nav::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(13,11,9,0.9) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .nav-logo {
+      font-family: 'Satisfy', cursive;
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--burgundy) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+      position: relative;
+      z-index: 1;
+      letter-spacing: 0.02em;
+    }
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+      position: relative;
+      z-index: 1;
+    }
+    .nav-links a {
+      color: var(--warm-gray);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta {
+      position: relative;
+      z-index: 1;
+      background: transparent;
+      border: 1px solid rgba(201, 150, 58, 0.4);
+      color: var(--gold);
+      padding: 10px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+    .nav-cta:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--ink);
+    }
 
-/* badges */
-.badge{display:inline-block;background:rgba(201,148,58,.1);border:1px solid var(--border);border-radius:20px;padding:7px 18px;font-size:11px;font-weight:600;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase;}
-.badge-ghost{background:rgba(255,255,255,.05);border-color:var(--border2);color:rgba(255,255,255,.4);}
-.badge-green{background:rgba(76,175,135,.1);border-color:rgba(76,175,135,.25);color:#4caf87;}
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 80% at 70% 50%, rgba(123,31,58,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 20% 80%, rgba(201,150,58,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 80% 60% at 50% 10%, rgba(74,14,31,0.25) 0%, transparent 70%);
+    }
+    .hero-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(123,31,58,0.22) 0%, transparent 70%);
+      right: -100px; top: -100px;
+      animation-delay: 0s;
+    }
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(201,150,58,0.1) 0%, transparent 70%);
+      left: 5%; bottom: 10%;
+      animation-delay: -4s;
+    }
+    @keyframes drift {
+      0% { transform: translate(0,0) scale(1); }
+      100% { transform: translate(30px, 20px) scale(1.05); }
+    }
 
-/* buttons */
-.btn{display:inline-block;font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:14px 36px;border-radius:2px;border:none;cursor:pointer;transition:all .2s;font-family:var(--sans);}
-.btn-gold{background:var(--gold);color:var(--navy);}
-.btn-gold:hover{background:var(--gold2);transform:translateY(-2px);}
-.btn-outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.25);}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
-.btn-sm{padding:10px 24px;font-size:11px;}
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 900px;
+      padding: 0 40px;
+    }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.3s forwards;
+    }
+    .hero-wordmark {
+      font-family: 'Satisfy', cursive;
+      font-size: clamp(6rem, 18vw, 14rem);
+      line-height: 0.85;
+      background: linear-gradient(135deg, var(--warm-white) 0%, var(--gold-light) 30%, var(--gold) 55%, var(--burgundy) 85%, var(--burg-deep) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+    }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+      font-weight: 300;
+      font-style: italic;
+      color: rgba(245,239,230,0.6);
+      letter-spacing: 0.04em;
+      margin-bottom: 56px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%);
+      color: var(--ink);
+      border: none;
+      padding: 16px 48px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(201, 150, 58, 0.3);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--warm-gray);
+      border: 1px solid rgba(154,142,130,0.25);
+      padding: 16px 48px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: color 0.3s, border-color 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost:hover { color: var(--warm-white); border-color: rgba(245,239,230,0.3); }
 
-/* reveal */
-.rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease;}
-.rv.in{opacity:1;transform:none;}
-.d1{transition-delay:.1s;}.d2{transition-delay:.2s;}.d3{transition-delay:.3s;}.d4{transition-delay:.4s;}
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.4s forwards;
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, var(--gold-dim), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+    .scroll-text {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.1); }
+    }
 
-/* noise overlay */
-body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.02;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size:180px;}
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-/* ═══════════════════════════════════════════
-   HOME — HERO
-═══════════════════════════════════════════ */
-#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;}
-.hero-bg{position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 55% at 72% 38%,rgba(201,148,58,.11) 0%,transparent 60%),
-  radial-gradient(ellipse 45% 65% at 18% 65%,rgba(201,148,58,.06) 0%,transparent 55%);}
-.hero-grid{position:absolute;inset:0;
-  background-image:linear-gradient(rgba(201,148,58,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,148,58,.04) 1px,transparent 1px);
-  background-size:80px 80px;}
-.hero-content{position:relative;z-index:2;text-align:center;padding:0 40px;max-width:1000px;}
-.hero-eyebrow{font-size:11px;color:var(--gold);letter-spacing:5px;text-transform:uppercase;margin-bottom:28px;opacity:0;animation:fu .7s .3s forwards;}
-.hero-h1{font-family:var(--serif);font-size:clamp(68px,10vw,136px);font-weight:700;line-height:1;letter-spacing:-2px;color:var(--white);margin-bottom:8px;opacity:0;animation:fu .8s .5s forwards;}
-.hero-h1 em{color:var(--gold);font-style:italic;}
-.hero-tag{font-family:var(--serif);font-size:clamp(18px,2vw,26px);color:rgba(255,255,255,.35);font-style:italic;margin-bottom:44px;opacity:0;animation:fu .7s .7s forwards;}
-.hero-div{width:56px;height:1px;margin:0 auto 36px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:0;animation:fu .6s .85s forwards;}
-.hero-desc{font-size:17px;font-weight:300;color:var(--muted);line-height:1.82;max-width:580px;margin:0 auto 52px;opacity:0;animation:fu .7s 1s forwards;}
-.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;opacity:0;animation:fu .7s 1.15s forwards;}
-.hero-scroll{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fu .7s 1.6s forwards;}
-.hero-scroll p{font-size:10px;color:rgba(255,255,255,.25);letter-spacing:3px;text-transform:uppercase;}
-.scroll-beam{width:1px;height:40px;background:linear-gradient(var(--gold),transparent);animation:beam 2s infinite;}
-@keyframes beam{0%,100%{opacity:.2}50%{opacity:1}}
-@keyframes fu{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+    /* ===== MARQUEE ===== */
+    .marquee-section {
+      border-top: 1px solid rgba(201,150,58,0.1);
+      border-bottom: 1px solid rgba(201,150,58,0.1);
+      padding: 18px 0;
+      overflow: hidden;
+      background: rgba(201,150,58,0.03);
+    }
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      animation: marquee 22s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 40px;
+      white-space: nowrap;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+    }
+    .marquee-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--gold-dim);
+      opacity: 0.5;
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
 
-/* ═══════════════════════════════════════════
-   HOME — TICKER
-═══════════════════════════════════════════ */
-.ticker-wrap{overflow:hidden;padding:18px 0;border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);}
-.ticker{display:flex;animation:tick 30s linear infinite;white-space:nowrap;}
-.ticker:hover{animation-play-state:paused;}
-.tick-item{display:inline-flex;align-items:center;gap:12px;padding:0 30px;font-size:11px;color:rgba(255,255,255,.32);letter-spacing:2px;text-transform:uppercase;flex-shrink:0;}
-.tick-dot{color:var(--gold);font-size:8px;}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    /* ===== INTRO ===== */
+    .intro-section {
+      padding: 140px 60px 120px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .section-label::before {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--gold-dim);
+    }
+    .intro-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--warm-white);
+      max-width: 680px;
+      margin-bottom: 40px;
+    }
+    .intro-headline em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+    .intro-body {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--warm-gray);
+      max-width: 540px;
+      margin-bottom: 56px;
+    }
+    .intro-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      max-width: 540px;
+      border: 1px solid rgba(201,150,58,0.12);
+    }
+    .stat-item {
+      padding: 28px 24px;
+      border-right: 1px solid rgba(201,150,58,0.12);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+    }
 
-/* ═══════════════════════════════════════════
-   HOME — WHAT IS MY
-═══════════════════════════════════════════ */
-.what-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.what-visual{position:relative;height:520px;}
-.what-main{position:absolute;inset:0;border:1px solid var(--border);border-radius:var(--r);padding:44px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(160deg,rgba(11,27,58,.4),rgba(11,27,58,.95));}
-.what-quote{font-family:var(--serif);font-size:26px;font-style:italic;color:var(--white);line-height:1.42;margin-bottom:14px;}
-.what-attr{font-size:11px;color:rgba(255,255,255,.28);letter-spacing:2px;text-transform:uppercase;}
-.what-chip1{position:absolute;top:-16px;right:-16px;background:var(--gold);padding:16px 20px;border-radius:var(--r);}
-.what-chip1 .num{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--navy);line-height:1;}
-.what-chip1 .lbl{font-size:10px;font-weight:600;color:var(--navy);margin-top:2px;}
-.what-chip2{position:absolute;bottom:-18px;left:-18px;background:rgba(11,27,58,.98);border:1px solid var(--border);padding:16px 20px;border-radius:var(--r);}
-.what-chip2 .sub{font-size:10px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;}
-.what-chip2 .val{font-size:14px;color:rgba(255,255,255,.55);}
-.mango-box{background:rgba(201,148,58,.06);border:1px solid var(--border);border-left:3px solid var(--gold);padding:20px 24px;border-radius:0 var(--r) var(--r) 0;margin-top:28px;}
-.mango-label{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;}
-.mango-text{font-size:14px;color:var(--muted);line-height:1.72;font-style:italic;}
+    /* ===== PHILOSOPHY ===== */
+    .philosophy-section {
+      padding: 100px 60px;
+      background: var(--ink-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .philosophy-section::before {
+      content: '';
+      position: absolute;
+      top: -200px; right: -200px;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,31,58,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .philosophy-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+    .philosophy-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--warm-white);
+      position: relative;
+      padding-left: 32px;
+    }
+    .philosophy-quote::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--gold), var(--burgundy));
+    }
+    .philosophy-right { }
+    .philosophy-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 40px;
+    }
+    .pill {
+      border: 1px solid rgba(201,150,58,0.2);
+      padding: 8px 20px;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-dim);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .pill:hover { border-color: var(--gold); color: var(--gold); }
+    .philosophy-body {
+      font-size: 0.95rem;
+      line-height: 1.9;
+      color: var(--warm-gray);
+    }
 
-/* ═══════════════════════════════════════════
-   HOME — 3-LAYER STRUCTURE
-═══════════════════════════════════════════ */
-.layers-section{background:rgba(255,255,255,.015);}
-.layers-hdr{text-align:center;margin-bottom:64px;}
-.layers-stack{display:flex;flex-direction:column;gap:0;max-width:900px;margin:0 auto;}
-.layer{padding:32px 40px;position:relative;transition:all .3s;}
-.layer-founding{background:linear-gradient(135deg,rgba(201,148,58,.16),rgba(201,148,58,.06));border:1px solid rgba(201,148,58,.40);border-radius:var(--r) var(--r) 0 0;}
-.layer-acg{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-top:none;}
-.layer-network{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-top:none;border-radius:0 0 var(--r) var(--r);}
-.layer-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:12px;}
-.layer-left{display:flex;align-items:center;gap:14px;}
-.layer-icon{font-size:20px;color:var(--gold);}
-.layer-name{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--white);}
-.layer-tag-sm{font-size:10px;font-weight:600;color:rgba(255,255,255,.38);letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(255,255,255,.12);border-radius:12px;}
-.layer-fee{font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.5px;}
-.layer-perks{display:flex;gap:8px;flex-wrap:wrap;}
-.lp{font-size:11px;color:rgba(255,255,255,.40);padding:4px 10px;border:1px solid rgba(255,255,255,.07);border-radius:2px;}
-.lp-gold{color:rgba(201,148,58,.75);border-color:rgba(201,148,58,.18);}
-.conn-arrow{text-align:center;padding:10px 0;color:rgba(201,148,58,.35);font-size:18px;}
+    /* ===== FEATURES ===== */
+    .features-section {
+      padding: 120px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(201,150,58,0.08);
+      border: 1px solid rgba(201,150,58,0.08);
+      margin-top: 60px;
+    }
+    .feature-card {
+      background: var(--ink);
+      padding: 52px 40px;
+      transition: background 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(201,150,58,0.3), transparent);
+      transform: scaleX(0);
+      transition: transform 0.4s;
+    }
+    .feature-card:hover { background: var(--ink-2); }
+    .feature-card:hover::after { transform: scaleX(1); }
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 24px;
+      opacity: 0.6;
+    }
+    .feature-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--warm-white);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    .feature-desc {
+      font-size: 0.88rem;
+      line-height: 1.8;
+      color: var(--warm-gray);
+    }
+    .feature-num {
+      position: absolute;
+      top: 24px; right: 28px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      color: rgba(201,150,58,0.2);
+      letter-spacing: 0.1em;
+    }
 
-/* ═══════════════════════════════════════════
-   HOME — VERTICALS PREVIEW
-═══════════════════════════════════════════ */
-.v-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;}
-.v-card{padding:44px 40px;cursor:pointer;position:relative;overflow:hidden;}
-.v-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);transform:scaleX(0);transition:transform .4s;}
-.v-card:hover::before{transform:scaleX(1);}
-.v-card:hover{background:rgba(201,148,58,.04);}
-.v-num{font-family:var(--serif);font-size:64px;font-weight:700;color:rgba(201,148,58,.09);position:absolute;right:28px;top:20px;line-height:1;}
-.v-tag{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;}
-.v-name{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--white);margin-bottom:12px;line-height:1.1;}
-.v-name span{color:var(--gold);}
-.v-desc{font-size:14px;font-weight:300;color:var(--muted);line-height:1.70;max-width:360px;}
-.v-arrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-top:18px;transition:gap .2s;}
-.v-card:hover .v-arrow{gap:14px;}
+    /* ===== COMING SOON ===== */
+    .coming-section {
+      padding: 120px 60px;
+      background: var(--ink-2);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .coming-section::before {
+      content: 'vee';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Satisfy', cursive;
+      font-size: 28vw;
+      color: rgba(201,150,58,0.025);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .coming-inner {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .coming-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 300;
+      color: var(--warm-white);
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+    .coming-sub {
+      font-size: 0.95rem;
+      color: var(--warm-gray);
+      line-height: 1.8;
+      margin-bottom: 52px;
+    }
+    .notify-form {
+      display: flex;
+      gap: 0;
+      max-width: 440px;
+      margin: 0 auto 24px;
+    }
+    .notify-input {
+      flex: 1;
+      background: rgba(245,239,230,0.04);
+      border: 1px solid rgba(201,150,58,0.2);
+      border-right: none;
+      color: var(--warm-white);
+      padding: 14px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .notify-input::placeholder { color: var(--warm-gray); opacity: 0.5; }
+    .notify-input:focus { border-color: var(--gold-dim); }
+    .notify-btn {
+      background: var(--gold);
+      border: 1px solid var(--gold);
+      color: var(--ink);
+      padding: 14px 28px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: none;
+      transition: background 0.3s;
+      white-space: nowrap;
+    }
+    .notify-btn:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .notify-note {
+      font-size: 0.72rem;
+      color: rgba(154,142,130,0.5);
+      letter-spacing: 0.05em;
+    }
 
-/* ═══════════════════════════════════════════
-   HOME — FOUNDING PREVIEW
-═══════════════════════════════════════════ */
-.founding-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px;}
-.founding-card{padding:32px 28px;border-radius:var(--r);}
-.founding-card.tech{background:rgba(74,144,217,.06);border:1px solid rgba(74,144,217,.20);}
-.founding-card.legal{background:rgba(76,175,135,.06);border:1px solid rgba(76,175,135,.20);}
-.founding-card.ca{background:rgba(201,148,58,.06);border:1px solid rgba(201,148,58,.20);}
-.fc-icon{font-size:28px;margin-bottom:14px;}
-.fc-name{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--white);margin-bottom:10px;letter-spacing:-.3px;}
-.fc-desc{font-size:14px;color:var(--muted);line-height:1.72;}
-.fc-tag{display:inline-block;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:12px;margin-top:12px;}
-.fc-tag-tech{background:rgba(74,144,217,.15);color:#4a90d9;}
-.fc-tag-legal{background:rgba(76,175,135,.15);color:#4caf87;}
-.fc-tag-ca{background:rgba(201,148,58,.15);color:var(--gold);}
+    /* ===== CITIES ===== */
+    .cities-section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .cities-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 48px;
+    }
+    .city-tag {
+      border: 1px solid rgba(201,150,58,0.12);
+      padding: 12px 24px;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      color: var(--warm-gray);
+      position: relative;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .city-tag.active {
+      border-color: rgba(201,150,58,0.4);
+      color: var(--gold);
+    }
+    .city-tag.active::before {
+      content: '●';
+      margin-right: 8px;
+      font-size: 0.5rem;
+      vertical-align: middle;
+    }
+    .city-tag.soon { opacity: 0.4; }
+    .city-tag.soon::after {
+      content: 'soon';
+      margin-left: 8px;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(154,142,130,0.4);
+    }
 
-/* ═══════════════════════════════════════════
-   NETWORK PAGE — LAYERS DETAIL
-═══════════════════════════════════════════ */
-.network-hero{padding:160px 0 80px;position:relative;overflow:hidden;}
-.network-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 55% at 65% 45%,rgba(201,148,58,.09) 0%,transparent 65%);}
-.layer-detail{margin-bottom:28px;border-radius:var(--r);overflow:hidden;}
-.ld-hdr{padding:20px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;}
-.ld-hdr-founding{background:#0B1B3A;border-bottom:3px solid var(--gold);}
-.ld-hdr-acg{background:#122040;}
-.ld-hdr-network{background:#162d5a;}
-.ld-left{display:flex;align-items:center;gap:14px;}
-.ld-icon{font-size:22px;color:var(--gold);}
-.ld-name{font-family:var(--serif);font-size:27px;font-weight:700;color:var(--white);letter-spacing:-.3px;}
-.ld-badge-sm{font-size:10px;color:rgba(255,255,255,.38);letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border:1px solid rgba(255,255,255,.12);border-radius:12px;}
-.ld-fee-display{font-family:var(--cinzel);font-size:15px;color:var(--gold);letter-spacing:1px;}
-.ld-body{padding:28px 32px;border:1px solid var(--border2);border-top:none;border-radius:0 0 var(--r) var(--r);background:rgba(255,255,255,.02);}
-.ld-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;}
-.ld-col-title{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
-.perk-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.perk-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(255,255,255,.52);line-height:1.65;}
-.perk-dot{color:var(--gold);font-size:9px;margin-top:4px;flex-shrink:0;}
-.fee-box{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);padding:20px 22px;}
-.fee-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);}
-.fee-row:last-child{border-bottom:none;}
-.fee-lbl{font-size:12px;color:rgba(255,255,255,.42);letter-spacing:.2px;}
-.fee-val{font-size:14px;font-weight:600;color:var(--white);font-family:var(--playfair);letter-spacing:.3px;}
-.fee-note-sm{font-size:11px;color:rgba(255,255,255,.22);margin-top:10px;line-height:1.55;}
-.fee-best{display:inline-block;background:var(--gold);color:var(--navy);font-size:9px;padding:2px 7px;border-radius:2px;font-weight:700;margin-left:6px;vertical-align:middle;}
-.comp-table{width:100%;border-collapse:collapse;margin-top:48px;}
-.dm-cell{padding:16px 18px;border:1px solid var(--border2);transition:all .2s;cursor:default;}
-.dm-cell:hover{background:rgba(201,148,58,.05);border-color:var(--border);}
-.dm-name{font-size:13px;font-weight:500;color:rgba(255,255,255,.68);margin-bottom:4px;}
-.dm-sub{font-size:11px;color:rgba(255,255,255,.28);line-height:1.5;}
-.comp-table th{background:rgba(11,27,58,.8);color:var(--white);font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:12px 16px;text-align:left;border-bottom:1px solid var(--border2);}
-.comp-table td{padding:12px 16px;font-size:13px;color:rgba(255,255,255,.52);border-bottom:1px solid rgba(255,255,255,.04);}
-.comp-table tr:last-child td{border-bottom:none;}
-.comp-table tr:nth-child(even) td{background:rgba(255,255,255,.01);}
-.check{color:var(--green);font-weight:600;}
-.cross{color:rgba(255,255,255,.2);}
-.highlight-cell{color:var(--gold);font-weight:500;}
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid rgba(201,150,58,0.08);
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .footer-logo {
+      font-family: 'Satisfy', cursive;
+      font-size: 1.8rem;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--burgundy) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(154,142,130,0.4);
+      letter-spacing: 0.06em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(154,142,130,0.4);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold-dim); }
 
-/* ═══════════════════════════════════════════
-   VERTICALS PAGE
-═══════════════════════════════════════════ */
-.vert-hero{padding:160px 0 80px;}
-.vert-detail{padding:80px 0;border-top:1px solid var(--border2);}
-.vert-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start;}
-.vert-num{font-family:var(--serif);font-size:130px;font-weight:700;color:rgba(201,148,58,.07);line-height:1;margin-bottom:-24px;letter-spacing:-4px;}
-.vert-features{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px;}
-.vf{padding:20px 18px;border:1px solid var(--border2);border-radius:var(--r);transition:all .25s;}
-.vf:hover{border-color:var(--border);background:rgba(201,148,58,.04);transform:translateY(-2px);}
-.vf-icon{font-size:18px;margin-bottom:8px;}
-.vf-name{font-size:14px;font-weight:600;color:var(--white);margin-bottom:6px;letter-spacing:.1px;}
-.vf-desc{font-size:12px;color:var(--muted);line-height:1.62;}
-.use-cases{display:flex;flex-direction:column;gap:0;}
-.uc{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--border2);}
-.uc:last-child{border-bottom:none;}
-.uc-dot{color:var(--gold);font-size:10px;margin-top:4px;flex-shrink:0;}
-.uc-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:5px;letter-spacing:.1px;}
-.uc-body{font-size:14px;color:var(--muted);line-height:1.72;}
+    /* ===== REVEAL ANIMATIONS ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* ═══════════════════════════════════════════
-   FOUNDING PAGE
-═══════════════════════════════════════════ */
-.founding-hero{padding:160px 0 80px;text-align:center;}
-.founding-domain-section{padding:60px 0;border-top:1px solid var(--border2);}
-.domain-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;}
-.domain-card-big{padding:44px;border-radius:var(--r);}
-.domain-tech-bg{background:rgba(74,144,217,.06);border:1px solid rgba(74,144,217,.20);}
-.domain-legal-bg{background:rgba(76,175,135,.06);border:1px solid rgba(76,175,135,.20);}
-.domain-ca-bg{background:rgba(201,148,58,.06);border:1px solid rgba(201,148,58,.20);}
-.domain-icon-big{font-size:48px;margin-bottom:20px;}
-.domain-name-big{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--white);margin-bottom:14px;}
-.domain-roles{display:flex;flex-direction:column;gap:6px;margin-top:16px;}
-.domain-role{font-size:14px;color:var(--muted);display:flex;align-items:center;gap:8px;line-height:1.6;}
-.domain-role::before{content:'◆';color:var(--gold);font-size:8px;flex-shrink:0;}
-.founding-perks{display:flex;flex-direction:column;gap:14px;}
-.fp-item{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--border2);}
-.fp-item:last-child{border-bottom:none;}
-.fp-icon{width:36px;height:36px;background:rgba(201,148,58,.1);border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
-.fp-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:5px;letter-spacing:.1px;}
-.fp-body{font-size:13px;color:var(--muted);line-height:1.68;}
-.founding-cta-box{background:rgba(201,148,58,.06);border:1px solid var(--border);border-radius:var(--r);padding:40px;text-align:center;margin-top:60px;}
-
-/* ═══════════════════════════════════════════
-   ABOUT PAGE
-═══════════════════════════════════════════ */
-.about-hero{padding:160px 0 80px;}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
-.about-visual{position:relative;height:540px;}
-.about-main-card{position:absolute;inset:0;border:1px solid var(--border);border-radius:var(--r);padding:44px;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(160deg,rgba(11,27,58,.5),rgba(11,27,58,.95));}
-.about-quote{font-family:var(--serif);font-size:24px;font-style:italic;color:var(--white);line-height:1.45;margin-bottom:14px;}
-.about-attr{font-size:11px;color:rgba(255,255,255,.28);letter-spacing:2px;text-transform:uppercase;}
-.about-chip1{position:absolute;top:-14px;right:-14px;background:var(--gold);padding:14px 18px;border-radius:var(--r);}
-.about-chip1 .n{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--navy);line-height:1;}
-.about-chip1 .l{font-size:10px;font-weight:600;color:var(--navy);margin-top:2px;}
-.about-chip2{position:absolute;bottom:-16px;left:-16px;background:rgba(11,27,58,.98);border:1px solid var(--border);padding:14px 18px;border-radius:var(--r);}
-.about-chip2 .s{font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:3px;}
-.about-chip2 .v{font-size:13px;color:rgba(255,255,255,.50);}
-.principles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;}
-.principle{padding:22px 18px;border:1px solid var(--border2);border-radius:var(--r);transition:border-color .2s;}
-.principle:hover{border-color:var(--border);}
-.principle-icon{font-size:18px;margin-bottom:10px;}
-.principle-name{font-size:14px;font-weight:600;color:var(--white);margin-bottom:7px;letter-spacing:.1px;}
-.principle-body{font-size:13px;color:var(--muted);line-height:1.68;}
-.timeline{display:flex;flex-direction:column;gap:0;}
-.tl-item{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid var(--border2);}
-.tl-item:last-child{border-bottom:none;}
-.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px;}
-.tl-year{font-family:var(--playfair);font-size:22px;font-weight:700;color:var(--gold);min-width:60px;flex-shrink:0;letter-spacing:.3px;}
-.tl-title{font-size:15px;font-weight:500;color:var(--white);margin-bottom:5px;letter-spacing:.1px;}
-.tl-body{font-size:14px;color:var(--muted);line-height:1.72;}
-
-/* ═══════════════════════════════════════════
-   CONTACT PAGE
-═══════════════════════════════════════════ */
-.contact-hero{padding:160px 0 80px;}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;margin-top:64px;}
-.contact-card{padding:36px;border:1px solid var(--border2);border-radius:var(--r);transition:all .3s;}
-.contact-card:hover{border-color:var(--border);background:rgba(201,148,58,.03);}
-.cc-icon{width:48px;height:48px;background:rgba(201,148,58,.1);border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px;}
-.cc-title{font-family:var(--serif);font-size:24px;font-weight:700;color:var(--white);margin-bottom:8px;}
-.cc-desc{font-size:15px;color:var(--muted);line-height:1.78;margin-bottom:18px;}
-.cc-val{font-size:16px;color:var(--gold);font-weight:500;letter-spacing:.2px;}
-.contact-subject-list{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
-.cs-item{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.45);}
-.cs-item::before{content:'→';color:var(--gold);}
-
-/* ═══════════════════════════════════════════
-   FOOTER
-═══════════════════════════════════════════ */
-#footer{border-top:1px solid var(--border);padding:64px 64px 36px;}
-.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:48px;}
-.f-brand{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--white);}
-.f-brand span{color:var(--gold);}
-.f-sub{font-size:10px;color:rgba(255,255,255,.22);letter-spacing:3px;text-transform:uppercase;margin-top:5px;margin-bottom:14px;}
-.f-desc{font-size:14px;color:rgba(255,255,255,.32);line-height:1.78;max-width:260px;}
-.f-col-title{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
-.f-col a{display:block;font-size:14px;color:rgba(255,255,255,.35);margin-bottom:10px;transition:color .2s;cursor:pointer;}
-.f-col a:hover{color:var(--gold);}
-.f-bottom{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding-top:24px;border-top:1px solid rgba(255,255,255,.05);}
-.f-copy{font-size:12px;color:rgba(255,255,255,.22);letter-spacing:.2px;}
-.f-copy span{color:var(--gold);}
-.f-legal{display:flex;gap:20px;}
-.f-legal a{font-size:11px;color:rgba(255,255,255,.20);cursor:pointer;transition:color .2s;}
-.f-legal a:hover{color:var(--gold);}
-
-/* ═══════════════════════════════════════════
-   TOAST
-═══════════════════════════════════════════ */
-.toast{position:fixed;bottom:24px;right:24px;z-index:2000;background:var(--gold);color:var(--navy);font-size:13px;font-weight:600;padding:12px 20px;border-radius:2px;transform:translateY(60px);opacity:0;transition:all .3s;pointer-events:none;}
-.toast.show{transform:none;opacity:1;}
-
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-═══════════════════════════════════════════ */
-
-/* ═══════════════════════════════════════════
-   JOIN PAGE — FULL REDESIGN
-═══════════════════════════════════════════ */
-#pg-join .j-wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:120px 64px 80px;}
-#pg-join .j-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:80px;align-items:start;}
-#pg-join .j-left{position:sticky;top:100px;}
-#pg-join .j-eyebrow{font-size:11px;font-weight:500;color:var(--gold);letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:8px;}
-#pg-join .j-eyebrow::before{content:'';display:inline-block;width:24px;height:1px;background:var(--gold);}
-#pg-join .j-headline{font-family:var(--serif);font-size:clamp(40px,4vw,64px);font-weight:700;line-height:1.06;color:var(--white);margin-bottom:20px;}
-#pg-join .j-headline em{color:var(--gold);font-style:italic;}
-#pg-join .j-sub{font-size:15px;font-weight:300;color:var(--muted);line-height:1.82;margin-bottom:32px;max-width:400px;}
-#pg-join .j-gl{width:48px;height:2px;background:linear-gradient(90deg,var(--gold),transparent);margin-bottom:32px;}
-#pg-join .j-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px;}
-#pg-join .j-stat{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);padding:16px 18px;}
-#pg-join .j-sn{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--gold);line-height:1;}
-#pg-join .j-sl{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px;}
-#pg-join .j-layers{display:flex;flex-direction:column;gap:7px;margin-bottom:28px;}
-#pg-join .j-layer{display:flex;align-items:center;gap:12px;padding:11px 15px;border-radius:var(--r);border:1px solid var(--border2);transition:all .2s;}
-#pg-join .j-layer.hl{border-color:rgba(201,148,58,.3);background:rgba(201,148,58,.04);}
-#pg-join .jl-ic{font-size:13px;color:var(--gold);}
-#pg-join .jl-nm{font-size:13px;font-weight:500;color:rgba(255,255,255,.6);}
-#pg-join .jl-tg{margin-left:auto;font-size:10px;letter-spacing:1px;text-transform:uppercase;}
-#pg-join .jl-tg.open{color:var(--gold);}
-#pg-join .jl-tg.closed{color:rgba(255,255,255,.22);}
-#pg-join .j-trust{display:flex;flex-direction:column;gap:9px;}
-#pg-join .j-ti{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.38);}
-#pg-join .j-td{color:#3ecf8e;font-size:10px;flex-shrink:0;}
-/* form */
-#pg-join .fw{background:rgba(255,255,255,.025);border:1px solid var(--border2);border-radius:12px;overflow:hidden;}
-#pg-join .jpb{background:rgba(255,255,255,.04);height:4px;}
-#pg-join .jpf{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .5s cubic-bezier(.4,0,.2,1);width:20%;}
-#pg-join .j-tabs{display:flex;border-bottom:1px solid var(--border2);padding:0 28px;}
-#pg-join .j-tab{flex:1;text-align:center;padding:13px 4px;font-size:10px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.2);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .3s;position:relative;}
-#pg-join .j-tab.active{color:var(--gold);border-bottom-color:var(--gold);}
-#pg-join .j-tab.done{color:rgba(201,148,58,.4);border-bottom-color:rgba(201,148,58,.18);}
-#pg-join .j-tab.done::after{content:'✓';position:absolute;top:9px;right:2px;font-size:8px;color:#3ecf8e;}
-#pg-join .j-fb{padding:32px 28px;}
-#pg-join .j-step{display:none;}
-#pg-join .j-step.active{display:block;animation:jfu .35s ease;}
-@keyframes jfu{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-#pg-join .j-st{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--white);margin-bottom:5px;}
-#pg-join .j-ss{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.6;}
-/* track */
-#pg-join .j-tg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px;}
-#pg-join .j-tc{border:1.5px solid var(--border2);border-radius:var(--r);padding:18px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
-#pg-join .j-tc::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,148,58,.08),transparent);opacity:0;transition:opacity .25s;}
-#pg-join .j-tc:hover,#pg-join .j-tc.sel{border-color:rgba(201,148,58,.45);}
-#pg-join .j-tc.sel{background:rgba(201,148,58,.06);}
-#pg-join .j-tc:hover::before,#pg-join .j-tc.sel::before{opacity:1;}
-#pg-join .jtcc{position:absolute;top:10px;right:10px;width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:9px;transition:all .2s;}
-#pg-join .j-tc.sel .jtcc{background:var(--gold);border-color:var(--gold);color:var(--navy);}
-#pg-join .jtci{font-size:20px;margin-bottom:8px;}
-#pg-join .jtcn{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--white);margin-bottom:3px;}
-#pg-join .jtcn span{color:var(--gold);}
-#pg-join .jtcd{font-size:11px;color:rgba(255,255,255,.32);line-height:1.55;}
-#pg-join .jtcnt{font-size:10px;color:rgba(201,148,58,.55);margin-top:6px;font-style:italic;}
-#pg-join .j-ib{background:rgba(201,148,58,.06);border:1px solid var(--border);border-radius:var(--r);padding:13px 16px;margin-bottom:6px;}
-#pg-join .j-ibl{font-size:10px;font-weight:600;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px;}
-#pg-join .j-ibb{font-size:12px;color:var(--muted);line-height:1.65;}
-/* fields */
-#pg-join .j-fr{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
-#pg-join .j-f{margin-bottom:12px;}
-#pg-join .j-f label{display:block;font-size:10px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;}
-#pg-join .j-f .req{color:var(--gold);}
-#pg-join .j-f input,#pg-join .j-f select,#pg-join .j-f textarea{width:100%;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.07);border-radius:var(--r);padding:11px 14px;font-size:14px;font-weight:300;color:var(--white);outline:none;transition:all .2s;font-family:var(--sans);-webkit-appearance:none;}
-#pg-join .j-f input::placeholder,#pg-join .j-f textarea::placeholder{color:rgba(255,255,255,.16);}
-#pg-join .j-f input:focus,#pg-join .j-f select:focus,#pg-join .j-f textarea:focus{border-color:rgba(201,148,58,.45);background:rgba(255,255,255,.06);box-shadow:0 0 0 3px rgba(201,148,58,.07);}
-#pg-join .j-f select option{background:var(--navy2);}
-#pg-join .j-f textarea{min-height:90px;resize:vertical;line-height:1.6;}
-#pg-join .j-fn{font-size:11px;color:rgba(255,255,255,.18);margin-top:4px;}
-#pg-join .j-f.err input,#pg-join .j-f.err select,#pg-join .j-f.err textarea{border-color:var(--red);}
-#pg-join .j-em{font-size:11px;color:var(--red);margin-top:3px;display:none;}
-#pg-join .j-f.err .j-em{display:block;}
-/* intent */
-#pg-join .j-ig{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;}
-#pg-join .j-io{border:1.5px solid var(--border2);border-radius:var(--r);padding:11px 12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:8px;font-size:12px;color:rgba(255,255,255,.4);}
-#pg-join .j-io:hover{border-color:rgba(201,148,58,.28);color:rgba(255,255,255,.65);}
-#pg-join .j-io.sel{border-color:var(--gold);background:rgba(201,148,58,.06);color:var(--white);}
-#pg-join .j-id{width:7px;height:7px;border-radius:50%;border:1.5px solid currentColor;flex-shrink:0;}
-#pg-join .j-io.sel .j-id{background:var(--gold);border-color:var(--gold);}
-/* review */
-#pg-join .j-rc{background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);padding:18px;margin-bottom:14px;}
-#pg-join .j-rr{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);}
-#pg-join .j-rr:last-child{border-bottom:none;padding-bottom:0;}
-#pg-join .j-rk{min-width:110px;font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:1px;flex-shrink:0;}
-#pg-join .j-rv{font-size:13px;color:rgba(255,255,255,.55);line-height:1.5;}
-#pg-join .j-ag{display:flex;align-items:flex-start;gap:11px;padding:14px;background:rgba(255,255,255,.02);border:1px solid var(--border2);border-radius:var(--r);margin-bottom:14px;cursor:pointer;}
-#pg-join .j-ag input{width:15px;height:15px;accent-color:var(--gold);flex-shrink:0;margin-top:2px;cursor:pointer;}
-#pg-join .j-agt{font-size:12px;color:rgba(255,255,255,.35);line-height:1.68;}
-#pg-join .j-sb{width:100%;background:var(--gold);color:var(--navy);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:13px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;font-family:var(--sans);}
-#pg-join .j-sb:hover{background:var(--gold2);}
-#pg-join .j-sb:disabled{opacity:.5;cursor:not-allowed;}
-#pg-join .j-dc{text-align:center;margin-top:11px;font-size:11px;color:rgba(255,255,255,.16);line-height:1.6;}
-/* nav */
-#pg-join .j-nav{display:flex;justify-content:space-between;align-items:center;margin-top:20px;padding-top:16px;border-top:1px solid var(--border2);}
-#pg-join .j-bb{background:none;border:1px solid var(--border2);color:rgba(255,255,255,.32);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;padding:10px 18px;border-radius:var(--r);cursor:pointer;transition:all .2s;font-family:var(--sans);}
-#pg-join .j-bb:hover{border-color:var(--border);color:var(--gold);}
-#pg-join .j-bn{background:var(--gold);color:var(--navy);font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:11px 26px;border-radius:var(--r);border:none;cursor:pointer;transition:all .2s;font-family:var(--sans);}
-#pg-join .j-bn:hover{background:var(--gold2);transform:translateY(-1px);}
-#pg-join .j-sc{font-size:11px;color:rgba(255,255,255,.2);letter-spacing:1px;}
-/* success */
-#pg-join .j-suc{display:none;padding:44px 28px;text-align:center;}
-#pg-join .j-suc.show{display:block;animation:jfu .5s ease;}
-#pg-join .j-si{width:66px;height:66px;background:rgba(62,207,142,.1);border:1px solid rgba(62,207,142,.22);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;font-size:24px;}
-#pg-join .j-stitle{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--white);margin-bottom:10px;}
-#pg-join .j-ssub{font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:18px;}
-#pg-join .j-sid{font-size:12px;color:rgba(201,148,58,.6);margin-bottom:22px;padding:7px 14px;background:rgba(201,148,58,.06);border:1px solid var(--border);border-radius:var(--r);display:inline-block;}
-/* responsive */
-@media(max-width:1024px){
-  #pg-join .j-wrap{padding:100px 36px 60px;}
-  #pg-join .j-grid{grid-template-columns:1fr;gap:40px;}
-  #pg-join .j-left{position:static;}
-  #pg-join .j-stats{grid-template-columns:repeat(4,1fr);}
-  #pg-join .j-tg,#pg-join .j-fr,#pg-join .j-ig{grid-template-columns:1fr;}
-  #pg-join .j-tabs{padding:0 14px;}
-}
-@media(max-width:640px){
-  #pg-join .j-wrap{padding:88px 20px 48px;}
-  #pg-join .j-stats{grid-template-columns:1fr 1fr;}
-  #pg-join .j-tab{font-size:9px;letter-spacing:.5px;}
-  #pg-join .j-fb{padding:18px 14px;}
-}
-@media(max-width:1024px){
-  .wrap,.wrap-sm{padding:0 36px;}
-  #nav,#nav.stuck{padding:16px 36px;}
-  .what-grid,.about-grid,.domain-grid,.vert-grid,.contact-grid{grid-template-columns:1fr;gap:48px;}
-  .what-visual,.about-visual{height:300px;}
-  .v-grid{grid-template-columns:1fr;}
-  .founding-grid,.vert-features{grid-template-columns:1fr 1fr;}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:32px;}
-  #footer{padding:48px 36px 28px;}
-  .principles-grid{grid-template-columns:1fr 1fr;}
-  .comp-table{font-size:12px;}
-}
-@media(max-width:640px){
-  .wrap,.wrap-sm{padding:0 20px;}
-  #nav,#nav.stuck{padding:14px 20px;}
-  .nav-links{display:none;}
-  .ham{display:flex;}
-  .founding-grid,.vert-features,.principles-grid,.ld-grid{grid-template-columns:1fr;}
-  .hero-h1{font-size:clamp(52px,14vw,80px);}
-  .footer-grid{grid-template-columns:1fr;}
-  .f-bottom{flex-direction:column;gap:12px;text-align:center;}
-  .f-legal{flex-wrap:wrap;justify-content:center;}
-  .layer-row{flex-direction:column;align-items:flex-start;}
-  .cur,.cur-r{display:none;}
-  body{cursor:auto;}
-}
-</style>
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .intro-section, .features-section, .cities-section { padding: 80px 24px; }
+      .philosophy-section { padding: 80px 24px; }
+      .philosophy-inner { grid-template-columns: 1fr; gap: 48px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .coming-section { padding: 80px 24px; }
+      footer { padding: 40px 24px; flex-direction: column; align-items: flex-start; }
+      .intro-stats { grid-template-columns: 1fr 1fr 1fr; }
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="cur" id="cur"></div>
-<div class="cur-r" id="curR"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
 
-<!-- ═══════ NAV ═══════ -->
-<nav id="nav">
-  <div class="nav-logo" onclick="goto('home')">Maha<span>Yukti</span></div>
-  <div class="nav-links" id="navLinks">
-    <a onclick="goto('home')" data-p="home">Home</a>
-    <a onclick="goto('about')" data-p="about">About</a>
-    <a onclick="goto('network')" data-p="network">Network</a>
-    <a onclick="goto('verticals')" data-p="verticals">Verticals</a>
-    <a onclick="goto('founding')" data-p="founding">Founding</a>
-    <a onclick="goto('blog')" data-p="blog">Blog</a>
-    <a onclick="goto('join')" data-p="join">Apply</a>
-    <a onclick="goto('contact')" data-p="contact" class="nav-cta">Contact</a>
-  </div>
-  <button class="ham" id="ham" onclick="toggleMob()"><span></span><span></span><span></span></button>
-</nav>
-
-<div id="mob-nav">
-  <a onclick="goto('home');toggleMob()">Home</a>
-  <a onclick="goto('about');toggleMob()">About</a>
-  <a onclick="goto('network');toggleMob()">Network</a>
-  <a onclick="goto('verticals');toggleMob()">Verticals</a>
-  <a onclick="goto('founding');toggleMob()">Founding Members</a>
-  <a onclick="goto('blog');toggleMob()">Blog</a>
-  <a onclick="goto('join');toggleMob()">Apply for Membership</a>
-  <a onclick="goto('contact');toggleMob()" style="color:var(--gold)">Contact Us</a>
-</div>
-<div id="mob-overlay" onclick="toggleMob()"></div>
-
-<!-- ═══════════════════════════════════════════
-     PAGE: HOME
-═══════════════════════════════════════════ -->
-<div class="page active" id="pg-home">
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">vee</a>
+    <ul class="nav-links">
+      <li><a href="#story">Story</a></li>
+      <li><a href="#why">Why Vee</a></li>
+      <li><a href="#cities">Cities</a></li>
+    </ul>
+    <button class="nav-cta" onclick="document.querySelector('.notify-input').focus(); document.querySelector('.coming-section').scrollIntoView({behavior:'smooth'})">Get Early Access</button>
+  </nav>
 
   <!-- HERO -->
-  <section id="hero">
+  <section class="hero">
     <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
     <div class="hero-content">
-      <p class="hero-eyebrow">Private Professional Network · India · Est. 2026</p>
-      <h1 class="hero-h1">Maha<em>Yukti</em></h1>
-      <p class="hero-tag">Maha Strategy. Every Scale.</p>
-      <div class="hero-div"></div>
-      <p class="hero-desc">India's first private cross-domain professional network — where expertise finds its purpose, professionals find their peers, and every need finds its answer.</p>
-      <div class="hero-btns">
-        <a class="btn btn-gold" onclick="goto('network')">Join the Network</a>
-        <a class="btn btn-outline" onclick="goto('about')">Discover MahaYukti</a>
+      <p class="hero-eyebrow">A new kind of food delivery</p>
+      <span class="hero-wordmark">vee</span>
+      <p class="hero-tagline">Where every order tells a story worth savoring.</p>
+      <div class="hero-ctas">
+        <a href="#" class="btn-primary" onclick="document.querySelector('.coming-section').scrollIntoView({behavior:'smooth'}); return false;">Join the Waitlist</a>
+        <a href="#story" class="btn-ghost">Our Story</a>
       </div>
     </div>
-    <div class="hero-scroll"><p>Scroll</p><div class="scroll-beam"></div></div>
+    <div class="hero-scroll">
+      <div class="scroll-line"></div>
+      <span class="scroll-text">Scroll</span>
+    </div>
   </section>
 
-  <div class="accent"></div>
-
-  <!-- TICKER -->
-  <div class="ticker-wrap">
-    <div class="ticker" id="ticker">
-      <span class="tick-item"><span class="tick-dot">◆</span>Legal</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Finance &amp; Banking</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Technology</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Cybersecurity</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Medicine &amp; Healthcare</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Intelligence &amp; Research</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Real Estate</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Media &amp; Entertainment</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Strategy &amp; Management</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Politics &amp; Public Affairs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Manufacturing &amp; Industrial</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Education &amp; Academia</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Food &amp; Beverage</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Venture Capital</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Banking &amp; NBFCs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Corporates &amp; MNCs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Hospitality &amp; Tourism</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Logistics &amp; Supply Chain</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Agriculture &amp; Agritech</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Retail &amp; E-Commerce</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Sports &amp; Athletics</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Architecture &amp; Urban Planning</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Pharmaceuticals</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Defence &amp; Security</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Non-Profit &amp; NGOs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Insurance</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Shipping &amp; Maritime</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Aviation</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Energy &amp; Renewables</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Any Domain</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Legal</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Finance &amp; Banking</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Technology</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Cybersecurity</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Medicine &amp; Healthcare</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Intelligence &amp; Research</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Real Estate</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Media &amp; Entertainment</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Strategy &amp; Management</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Politics &amp; Public Affairs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Manufacturing &amp; Industrial</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Education &amp; Academia</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Food &amp; Beverage</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Venture Capital</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Banking &amp; NBFCs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Corporates &amp; MNCs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Hospitality &amp; Tourism</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Logistics &amp; Supply Chain</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Agriculture &amp; Agritech</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Retail &amp; E-Commerce</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Sports &amp; Athletics</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Architecture &amp; Urban Planning</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Pharmaceuticals</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Defence &amp; Security</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Non-Profit &amp; NGOs</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Insurance</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Shipping &amp; Maritime</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Aviation</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Energy &amp; Renewables</span>
-      <span class="tick-item"><span class="tick-dot">◆</span>Any Domain</span>
+  <!-- MARQUEE -->
+  <div class="marquee-section">
+    <div class="marquee-track">
+      <div class="marquee-item">Curated Restaurants <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Live Kitchen Tracking <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Chef's Specials <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Flat ₹1,500/month. No More. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Zero Commission. Ever. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Driver-First Philosophy <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Taste-Forward Curation <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Curated Restaurants <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Live Kitchen Tracking <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Flat ₹1,500/month. No More. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Zero Commission. Ever. <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Driver-First Philosophy <span class="marquee-dot"></span></div>
+      <div class="marquee-item">Taste-Forward Curation <span class="marquee-dot"></span></div>
     </div>
   </div>
 
-  <div class="accent"></div>
+  <!-- INTRO / STORY -->
+  <section class="intro-section" id="story">
+    <div class="section-label reveal">Our beginning</div>
+    <h2 class="intro-headline reveal">
+      Food is more than fuel.<br/>
+      It's <em>feeling, memory,</em><br/>
+      and connection.
+    </h2>
+    <p class="intro-body reveal">
+      We built Vee because we believed delivery could be more than a transaction. 
+      Every meal has a kitchen behind it, a chef with intent, and a diner with expectations. 
+      We exist to honor all three — with care baked into every layer.
+    </p>
+    <div class="intro-stats reveal">
+      <div class="stat-item">
+        <div class="stat-num">₹1,500</div>
+        <div class="stat-label">Flat monthly fee</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">0%</div>
+        <div class="stat-label">Commission taken</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Revenue yours to keep</div>
+      </div>
 
-  <!-- WHAT IS MAHAYUKTI -->
-  <section class="section">
-    <div class="wrap">
-      <div class="what-grid">
-        <div class="what-visual rv">
-          <div class="what-main card">
-            <div class="what-quote">"By you. For you. Of you. A mango tree you plant today — bearing unlimited fruit in the future."</div>
-            <div class="what-attr">MahaYukti · Network Philosophy</div>
-          </div>
-          <div class="what-chip1"><div class="num">4</div><div class="lbl">Verticals</div></div>
-          <div class="what-chip2"><div class="sub">Pan-India</div><div class="val">& Global Vision</div></div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="philosophy-section">
+    <div class="philosophy-inner">
+      <blockquote class="philosophy-quote reveal">
+        "The best delivery experience is one you forget was even delivery."
+      </blockquote>
+      <div class="philosophy-right">
+        <div class="philosophy-pills reveal">
+          <span class="pill">Ethically sourced</span>
+          <span class="pill">Local first</span>
+          <span class="pill">Zero commission model</span>
+          <span class="pill">Flat ₹1,500/month</span>
+          <span class="pill">Fair driver pay</span>
         </div>
-        <div class="rv d2">
-          <p class="eyebrow">What is MahaYukti</p>
-          <h2 class="h2">India's professional<br>network. <em>Built different.</em></h2>
-          <div class="gold-bar"></div>
-          <p class="body-lg">MahaYukti is not a job board. Not a freelance platform. Not a consulting firm. It is a private professional community — where a CA in Lucknow connects with a lawyer in Kolkata, a doctor in Mumbai, and a politician in Delhi. No gatekeeping. No fees between members. No platform cut on what you earn together.</p>
-          <div class="mango-box">
-            <div class="mango-label">The Founding Vision</div>
-            <div class="mango-text">Built by a practitioner who established similar networks across Europe, the UK, and the USA — now returned to India to give Indian professionals the same infrastructure the West takes for granted.</div>
-          </div>
-          <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap;">
-            <a class="btn btn-gold btn-sm" onclick="goto('about')">Our Story</a>
-            <a class="btn btn-outline btn-sm" onclick="goto('network')">Join the Network</a>
-          </div>
-        </div>
+        <p class="philosophy-body reveal">
+          We partner only with restaurants that cook with integrity — places where 
+          the owner knows their suppliers by name. We believe the people who bring 
+          food to your door deserve dignity, fair compensation, and respect. 
+          These aren't policies. They're principles we won't negotiate on.
+        </p>
       </div>
     </div>
   </section>
 
-  <div class="accent"></div>
-
-  <!-- 3-LAYER STRUCTURE -->
-  <section class="section layers-section">
-    <div class="wrap">
-      <div class="layers-hdr rv">
-        <p class="eyebrow" style="text-align:center">Membership Structure</p>
-        <h2 class="h2" style="text-align:center">Five layers.<br><em>One ecosystem.</em></h2>
+  <!-- FEATURES -->
+  <section class="features-section" id="why">
+    <div class="section-label reveal">Why Vee is different</div>
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <div class="feature-num">01</div>
+        <div class="feature-icon">✦</div>
+        <h3 class="feature-title">Taste-forward curation</h3>
+        <p class="feature-desc">Every restaurant on Vee is handpicked. We eat there before we list them. If it doesn't move us, it doesn't make the cut.</p>
       </div>
-            <div class="layers-stack rv">
-        <!-- PRESIDENT -->
-        <div class="layer" style="background:linear-gradient(135deg,rgba(201,148,58,0.22),rgba(201,148,58,0.10));border:1px solid rgba(201,148,58,0.55);border-radius:4px 4px 0 0;">
-          <div class="layer-row">
-            <div class="layer-left"><div class="layer-icon">◈</div><div class="layer-name" style="color:var(--gold);">Network President / Chairman</div><div class="layer-tag-sm">Apex Authority</div></div>
-            <div class="layer-fee" style="color:var(--gold);">Admin · Ghost Identity</div>
-          </div>
-          <div class="layer-perks"><span class="lp lp-gold">Absolute authority</span><span class="lp lp-gold">Ghost identity</span><span class="lp lp-gold">Disputes &amp; major decisions only</span></div>
-        </div>
-        <div class="conn-arrow">↓</div>
-        <!-- COUNCIL -->
-        <div class="layer" style="background:linear-gradient(135deg,rgba(201,148,58,0.14),rgba(201,148,58,0.06));border:1px solid rgba(201,148,58,0.38);border-top:none;">
-          <div class="layer-row">
-            <div class="layer-left"><div class="layer-icon">◈</div><div class="layer-name" style="color:var(--gold2);">Network Council</div><div class="layer-tag-sm">Invite Only · No Fees</div></div>
-            <div class="layer-fee">Founding Members &amp; Caretakers</div>
-          </div>
-          <div class="layer-perks"><span class="lp lp-gold">Domain governance</span><span class="lp lp-gold">Network standards</span><span class="lp lp-gold">ACG selection rights</span><span class="lp lp-gold">All privileges free · Permanent</span></div>
-        </div>
-        <div class="conn-arrow">↓</div>
-        <!-- ACG -->
-        <div class="layer layer-acg">
-          <div class="layer-row">
-            <div class="layer-left"><div class="layer-icon">◆</div><div class="layer-name">Advisory &amp; Consulting Group</div><div class="layer-tag-sm">By Council Selection</div></div>
-            <div class="layer-fee">₹25,000 annually</div>
-          </div>
-          <div class="layer-perks"><span class="lp">Internal mandates</span><span class="lp">MY Advisory</span><span class="lp">MY Consultancy</span><span class="lp">MY Concierge</span><span class="lp">Council access</span></div>
-        </div>
-        <div class="conn-arrow">↓</div>
-        <!-- PARTICIPANT -->
-        <div class="layer" style="background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.11);border-top:none;">
-          <div class="layer-row">
-            <div class="layer-left"><div class="layer-icon">◇</div><div class="layer-name">Network Participant</div><div class="layer-tag-sm">Member Upgrade Only</div></div>
-            <div class="layer-fee">₹5,000 one-time</div>
-          </div>
-          <div class="layer-perks"><span class="lp">Service listing</span><span class="lp">Domain forums</span><span class="lp">Priority referrals</span><span class="lp">MY Help mentoring</span><span class="lp">Client visibility</span></div>
-        </div>
-        <div class="conn-arrow">↓</div>
-        <!-- MEMBER -->
-        <div class="layer layer-network" style="border-radius:0 0 4px 4px;">
-          <div class="layer-row">
-            <div class="layer-left"><div class="layer-icon">○</div><div class="layer-name">Network Member</div><div class="layer-tag-sm">Open Application</div></div>
-            <div class="layer-fee">₹500 one-time</div>
-          </div>
-          <div class="layer-perks"><span class="lp">Verified credential</span><span class="lp">Directory listing</span><span class="lp">Lead routing</span><span class="lp">MY Help community</span><span class="lp">Peer connections</span></div>
-        </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">02</div>
+        <div class="feature-icon">◈</div>
+        <h3 class="feature-title">Live kitchen pulse</h3>
+        <p class="feature-desc">Know exactly when your food enters the oven, when it leaves the kitchen, and who's bringing it to you — with a real name and face.</p>
       </div>
-      <div style="text-align:center;margin-top:40px;" class="rv">
-        <a class="btn btn-gold" onclick="goto('network')">Explore Membership</a>
+      <div class="feature-card reveal">
+        <div class="feature-num">03</div>
+        <div class="feature-icon">◎</div>
+        <h3 class="feature-title">Flat subscription. Zero commission.</h3>
+        <p class="feature-desc">Restaurants pay a flat &#8377;1,500/month &#8212; and not a rupee more. We take zero commission on orders. Your revenue is yours, fully.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">04</div>
+        <div class="feature-icon">⬡</div>
+        <h3 class="feature-title">Driver-first model</h3>
+        <p class="feature-desc">Our delivery partners earn above market, choose their hours, and are never penalized for honesty. A happy delivery partner means your food arrives with care.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">05</div>
+        <div class="feature-icon">◇</div>
+        <h3 class="feature-title">Chef's daily edits</h3>
+        <p class="feature-desc">A rotating section of specials, experiments, and limited-run dishes that you won't find anywhere else. Updated every morning.</p>
+      </div>
+      <div class="feature-card reveal">
+        <div class="feature-num">06</div>
+        <div class="feature-icon">∴</div>
+        <h3 class="feature-title">Zero waste packaging</h3>
+        <p class="feature-desc">We partner only with restaurants committed to sustainable packaging. Every order is a small step in the right direction.</p>
       </div>
     </div>
   </section>
 
-  <div class="accent"></div>
-
-  <!-- VERTICALS PREVIEW -->
-  <section class="section">
-    <div class="wrap">
-      <div class="rv" style="margin-bottom:56px;">
-        <p class="eyebrow">Four Verticals</p>
-        <h2 class="h2">Every need.<br><em>Every scale.</em></h2>
-        <div class="gold-bar"></div>
-        <p class="body-lg" style="max-width:520px;">From structured advisory and expert consulting to discreet personal facilitation and community peer support — MahaYukti's four verticals cover the complete professional spectrum.</p>
+  <!-- COMING SOON / NOTIFY -->
+  <section class="coming-section">
+    <div class="coming-inner">
+      <div class="section-label reveal" style="justify-content: center;">Launching soon</div>
+      <h2 class="coming-title reveal">Be the first to taste it.</h2>
+      <p class="coming-sub reveal">We're putting the final touches on something we're genuinely proud of. Drop your email and you'll be the first to know when Vee arrives in your city.</p>
+      <div class="notify-form reveal">
+        <input type="email" class="notify-input" placeholder="your@email.com" />
+        <button class="notify-btn" onclick="handleNotify()">Notify me</button>
       </div>
-      <div class="v-grid rv">
-        <div class="v-card card card-glow" onclick="goto('verticals')">
-          <div class="v-num">01</div>
-          <div class="v-tag">MY Advisory</div>
-          <div class="v-name">MY <span>Advisory</span></div>
-          <p class="v-desc">Research, analysis, strategic intelligence, and counsel — for corporates, SMEs, political clients, and institutions.</p>
-          <div class="v-arrow">Explore <span>→</span></div>
-        </div>
-        <div class="v-card card card-glow" onclick="goto('verticals')">
-          <div class="v-num">02</div>
-          <div class="v-tag">MY Consultancy</div>
-          <div class="v-name">MY <span>Consultancy</span></div>
-          <p class="v-desc">Expert-to-client professional services across every domain — legal, financial, medical, technical, and strategic.</p>
-          <div class="v-arrow">Explore <span>→</span></div>
-        </div>
-        <div class="v-card card card-glow" onclick="goto('verticals')">
-          <div class="v-num">03</div>
-          <div class="v-tag">MY Concierge</div>
-          <div class="v-name">MY <span>Concierge</span></div>
-          <p class="v-desc">Bespoke facilitation for individuals and organisations navigating complex, sensitive, or time-critical circumstances.</p>
-          <div class="v-arrow">Explore <span>→</span></div>
-        </div>
-        <div class="v-card card card-glow" onclick="goto('verticals')">
-          <div class="v-num">04</div>
-          <div class="v-tag">MY Help</div>
-          <div class="v-name">MY <span>Help</span></div>
-          <p class="v-desc">The community layer — peer connection, mentoring, referrals, knowledge exchange, and buyer-seller introductions.</p>
-          <div class="v-arrow">Explore <span>→</span></div>
-        </div>
-      </div>
+      <p class="notify-note reveal">No spam. No newsletters. Just one email when we go live.</p>
     </div>
   </section>
 
-  <div class="accent"></div>
-
-  <!-- FOUNDING PREVIEW -->
-  <section class="section" style="background:rgba(255,255,255,.015);">
-    <div class="wrap">
-      <div class="rv" style="text-align:center;margin-bottom:48px;">
-        <p class="eyebrow" style="text-align:center">Phase 1 — Now Open</p>
-        <h2 class="h2" style="text-align:center">Become a <em>Founding Member.</em></h2>
-        <p class="body-lg" style="text-align:center;max-width:560px;margin:16px auto 0;">Phase 1 Founding Member applications are now closed. The founding council is reviewing all applications over the coming days. Selected Founding Members will be contacted directly by Admin.</p>
-      </div>
-      <div class="founding-grid rv">
-        <div class="founding-card tech">
-          <div class="fc-icon">⚡</div>
-          <div class="fc-name">Technology &amp; Cybersecurity</div>
-          <div class="fc-desc">Software engineers, architects, DevOps, cybersecurity analysts, VAPT specialists — build the network's digital foundation.</div>
-          <div class="fc-tag" style="background:rgba(224,85,85,.1);color:#e05555;">Applications Closed</div>
-        </div>
-        <div class="founding-card legal">
-          <div class="fc-icon">⚖</div>
-          <div class="fc-name">Legal Professionals</div>
-          <div class="fc-desc">Advocates, corporate lawyers, compliance specialists, contract architects — write the legal backbone of the network.</div>
-          <div class="fc-tag" style="background:rgba(224,85,85,.1);color:#e05555;">Applications Closed</div>
-        </div>
-        <div class="founding-card ca">
-          <div class="fc-icon">🔢</div>
-          <div class="fc-name">CA &amp; Finance</div>
-          <div class="fc-desc">Chartered accountants, forensic accountants, financial analysts — build the financial conscience of the network.</div>
-          <div class="fc-tag" style="background:rgba(224,85,85,.1);color:#e05555;">Applications Closed</div>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:40px;" class="rv">
-        <a class="btn btn-gold" onclick="goto('founding')">Founding Member Status</a>
-      </div>
+  <!-- CITIES -->
+  <section class="cities-section" id="cities">
+    <div class="section-label reveal">Where we're going</div>
+    <h2 class="intro-headline reveal" style="max-width: 480px;">Starting in India's most food-obsessed cities.</h2>
+    <div class="cities-row reveal">
+      <div class="city-tag active">Bengaluru</div>
+      <div class="city-tag active">Delhi NCR</div>
+      <div class="city-tag soon">Mumbai</div>
+      <div class="city-tag soon">Hyderabad</div>
+      <div class="city-tag soon">Chennai</div>
+      <div class="city-tag soon">Pune</div>
+      <div class="city-tag soon">Kolkata</div>
+      <div class="city-tag soon">Ahmedabad</div>
     </div>
   </section>
 
-  <div class="accent"></div>
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">vee</span>
+    <ul class="footer-links">
+      <li><a href="#">Careers</a></li>
+      <li><a href="#">Partner with us</a></li>
+      <li><a href="#">Privacy</a></li>
+    </ul>
+    <p class="footer-copy">© 2025 Vee. All rights reserved.</p>
+  </footer>
 
-  <!-- CTA STRIP -->
-  <section class="section-sm">
-    <div class="wrap-sm" style="text-align:center;">
-      <div class="rv">
-        <p class="eyebrow" style="text-align:center">Ready to Join</p>
-        <h2 class="h2" style="text-align:center;margin-bottom:20px;">The network is open.<br><em>Membership</em> is earned.</h2>
-        <p class="body-md" style="text-align:center;margin:0 auto 36px;max-width:480px;">Network membership: ₹500 one-time registration. Write to us — all applications are reviewed individually with complete confidentiality.</p>
-        <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
-          <a class="btn btn-gold" href="mailto:info@mahayukti.com?subject=Network Membership Application">Apply via Email</a>
-          <a class="btn btn-outline" onclick="goto('contact')">Contact Us</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <script>
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
 
-</div><!-- /home -->
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
 
-<!-- ═══════════════════════════════════════════
-     PAGE: ABOUT
-═══════════════════════════════════════════ -->
-<div class="page" id="pg-about">
-  <div class="about-hero">
-    <div class="wrap">
-      <div class="about-grid">
-        <div class="rv">
-          <div class="about-visual">
-            <div class="about-main-card card">
-              <div class="about-quote">"The most powerful networks are the ones no single person owns — but every member builds."</div>
-              <div class="about-attr">MahaYukti · Network Philosophy</div>
-            </div>
-            <div class="about-chip1"><div class="n">3</div><div class="l">Continents</div></div>
-            <div class="about-chip2"><div class="s">Pan-India</div><div class="v">&amp; Global Vision</div></div>
-          </div>
-        </div>
-        <div class="rv d2">
-          <p class="eyebrow">About MahaYukti</p>
-          <h1 class="h1">Built by those<br>who saw it <em>work.</em></h1>
-          <div class="gold-bar"></div>
-          <p class="body-lg">MahaYukti is not a startup idea. It is a proven model transplanted from Europe, the UK, and the USA onto Indian soil by a practitioner who spent two decades building exactly this kind of ecosystem abroad.</p>
-          <p class="body-md" style="margin-top:16px;">The mission is singular: to give India's professionals the same access, infrastructure, and global-grade network that the West has long taken for granted.</p>
-          <div class="mango-box" style="margin-top:28px;">
-            <div class="mango-label">The Founder</div>
-            <div class="mango-text">A seasoned global practitioner with two decades of experience across three continents has returned to India. The network is the protagonist — Admin is simply its guardian. The founder will only involve in cases of internal dispute. The network is designed to run on its own — powered by its members.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="accent"></div>
-  <section class="section">
-    <div class="wrap">
-      <div class="rv" style="text-align:center;margin-bottom:48px;">
-        <p class="eyebrow" style="text-align:center">Our Principles</p>
-        <h2 class="h2" style="text-align:center">What the network<br>is <em>built on.</em></h2>
-      </div>
-      <div class="principles-grid rv">
-        <div class="principle"><div class="principle-icon">◈</div><div class="principle-name">Expertise First</div><div class="principle-body">Membership is earned through verified domain expertise — not job titles or years of service alone.</div></div>
-        <div class="principle"><div class="principle-icon">🛡</div><div class="principle-name">Absolute Discretion</div><div class="principle-body">Client identities, member profiles, and internal operations are protected as a foundational commitment.</div></div>
-        <div class="principle"><div class="principle-icon">◇</div><div class="principle-name">Community Sustenance</div><div class="principle-body">Members retain what they earn. No platform cut between members. The network is sustained by its community.</div></div>
-        <div class="principle"><div class="principle-icon">🌐</div><div class="principle-name">India First, Global Always</div><div class="principle-body">Rooted in India. Built with global architecture. The founder's international experience is the structural advantage.</div></div>
-        <div class="principle"><div class="principle-icon">⚖</div><div class="principle-name">Scrutiny Over Scale</div><div class="principle-body">Every application is reviewed individually. The network's value depends entirely on who is inside it.</div></div>
-        <div class="principle"><div class="principle-icon">♟</div><div class="principle-name">Collective Intelligence</div><div class="principle-body">A lawyer, a data scientist, a journalist, and a financier working on the same mandate. That is the real asset.</div></div>
-      </div>
-    </div>
-  </section>
-  <div class="accent"></div>
-  <section class="section" style="background:rgba(255,255,255,.015);">
-    <div class="wrap">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;" class="rv">
-        <div>
-          <p class="eyebrow">The Journey</p>
-          <h2 class="h2" style="font-size:clamp(28px,3.2vw,44px);">Two decades.<br>Three continents.<br><em>One mission.</em></h2>
-          <div class="gold-bar"></div>
-          <p class="body-md">The model that powers MahaYukti was not conceived in India. It was observed, built, and refined across three of the world's most sophisticated professional markets — then brought home.</p>
-        </div>
-        <div>
-          <div class="timeline">
-            <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-year">Europe</div><div class="tl-title">Private Network Architecture</div><div class="tl-body">Establishing cross-domain professional networks serving HNI clients, institutions, and organisations requiring discreet, expert-led facilitation.</div></div></div>
-            <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-year">UK</div><div class="tl-title">Advisory Infrastructure</div><div class="tl-body">Building legal, financial, and intelligence advisory networks spanning multiple professional domains under a unified, trusted brand.</div></div></div>
-            <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-year">USA</div><div class="tl-title">Scale &amp; Scope</div><div class="tl-body">Expanding the model to cover corporate, political, and personal facilitation — proving the architecture at scale.</div></div></div>
-            <div class="tl-item"><div class="tl-dot"></div><div><div class="tl-year">India</div><div class="tl-title">MahaYukti · 2026</div><div class="tl-body">Returning home to build the same infrastructure for India's professionals — on Indian terms, with global architecture.</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div><!-- /about -->
-
-<!-- ═══════════════════════════════════════════
-     PAGE: NETWORK
-═══════════════════════════════════════════ -->
-<div class="page" id="pg-network">
-  <div class="network-hero">
-    <div class="wrap" style="padding-top:120px;">
-      <div class="rv" style="text-align:center;margin-bottom:64px;">
-        <p class="eyebrow" style="text-align:center">Membership</p>
-        <h1 class="h1" style="text-align:center;max-width:700px;margin:0 auto 16px;">Open to all.<br><em>Selective</em> by design.</h1>
-        <p class="body-lg" style="text-align:center;max-width:560px;margin:0 auto;">Every application is reviewed individually. Admission is by scrutiny — credentials, domain expertise, and professional intent are all considered.</p>
-      </div>
-
-      <!-- LAYER DETAILS -->
-      <div class="rv">
-        <div class="layer-detail">
-          <div class="ld-hdr ld-hdr-founding">
-            <div class="ld-left"><div class="ld-icon">◈</div><div class="ld-name">Founding Members</div><div class="ld-badge-sm">Phase 1 · Applications Closed</div></div>
-            <div class="ld-fee-display">No Fees · Ever · Permanent</div>
-          </div>
-          <div class="ld-body">
-            <div class="ld-grid">
-              <div>
-                <div class="ld-col-title">Who They Are &amp; What They Do</div>
-                <ul class="perk-list">
-                  <li><span class="perk-dot">◆</span>A select cohort of Technology, Legal, and CA professionals contributing to establish MahaYukti</li>
-                  <li><span class="perk-dot">◆</span>Trusted Counsel and Senior Consultants to Admin</li>
-                  <li><span class="perk-dot">◆</span>Shape the network's frameworks, standards, and founding culture</li>
-                  <li><span class="perk-dot">◆</span>Form the founding council that selects future ACG members</li>
-                  <li><span class="perk-dot">◆</span>No commitment required — contribute on your own terms</li>
-                </ul>
-              </div>
-              <div>
-                <div class="ld-col-title">What They Hold — Forever</div>
-                <div class="fee-box">
-                  <div class="fee-row"><div class="fee-lbl">Registration Fee</div><div class="fee-val" style="color:var(--green);">None · Ever</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Annual Fee</div><div class="fee-val" style="color:var(--green);">None · Ever</div></div>
-                  <div class="fee-row"><div class="fee-lbl">ACG Access</div><div class="fee-val" style="color:var(--green);">Full · Permanent</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Status</div><div class="fee-val">Permanent · Non-transferable</div></div>
-                  <div class="fee-note-sm">Founding status is a lifetime distinction. It will never be re-issued after Phase 1 closes. Founding Members hold all ACG privileges permanently at no cost.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="text-align:center;padding:12px 0;color:rgba(201,148,58,.35);font-size:18px;">↓</div>
-
-        <div class="layer-detail">
-          <div class="ld-hdr ld-hdr-acg">
-            <div class="ld-left"><div class="ld-icon">◆</div><div class="ld-name">Advisory &amp; Consulting Group</div><div class="ld-badge-sm">By Founding Council Selection Only</div></div>
-            <div class="ld-fee-display">₹25,000 Annually</div>
-          </div>
-          <div class="ld-body">
-            <div class="ld-grid">
-              <div>
-                <div class="ld-col-title">Access &amp; Privileges</div>
-                <ul class="perk-list">
-                  <li><span class="perk-dot">◆</span>Full access to MahaYukti's internal business mandates</li>
-                  <li><span class="perk-dot">◆</span>MY Advisory — research, intelligence, and strategic mandates</li>
-                  <li><span class="perk-dot">◆</span>MY Consultancy — client engagement routing by domain</li>
-                  <li><span class="perk-dot">◆</span>MY Concierge — bespoke facilitation for high-value, discreet engagements</li>
-                  <li><span class="perk-dot">◆</span>Direct consultation rights with Admin</li>
-                  <li><span class="perk-dot">◆</span>Collaborative mandates with other ACG members</li>
-                  <li><span class="perk-dot">◆</span>All Network Member benefits included</li>
-                </ul>
-              </div>
-              <div>
-                <div class="ld-col-title">Fee Structure</div>
-                <div class="fee-box">
-                  <div class="fee-row"><div class="fee-lbl">Network Registration (first)</div><div class="fee-val">₹500</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Annual ACG Fee</div><div class="fee-val">₹25,000 / year</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Platform Cut on Earnings</div><div class="fee-val" style="color:var(--green);">None</div></div>
-                  <div class="fee-note-sm">ACG membership cannot be applied for. It is extended by invitation from the Founding Council only — based on domain expertise, conduct, and fit. Annual members revert to Network Member status if not renewed.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="text-align:center;padding:12px 0;color:rgba(201,148,58,.35);font-size:18px;">↓</div>
-
-        <div class="layer-detail">
-          <div class="ld-hdr" style="background:#1a3a5c;">
-            <div class="ld-left"><div class="ld-icon">◇</div><div class="ld-name">Network Participant</div><div class="ld-badge-sm">Member Upgrade Only · Not Direct Application</div></div>
-            <div class="ld-fee-display">₹5,000 One-Time</div>
-          </div>
-          <div class="ld-body">
-            <div class="ld-grid">
-              <div>
-                <div class="ld-col-title">Access &amp; Privileges</div>
-                <ul class="perk-list">
-                  <li><span class="perk-dot">◆</span>Active service listing — clients searching the network find you directly</li>
-                  <li><span class="perk-dot">◆</span>Domain-specific forums and group discussions</li>
-                  <li><span class="perk-dot">◆</span>Priority referral routing over Network Members</li>
-                  <li><span class="perk-dot">◆</span>MY Help mentoring — as mentor and mentee</li>
-                  <li><span class="perk-dot">◆</span>Cross-domain collaboration invitations from Council and ACG</li>
-                  <li><span class="perk-dot">◆</span>Primary field of view for ACG invitation by the Network Council</li>
-                </ul>
-              </div>
-              <div>
-                <div class="ld-col-title">Fee Structure</div>
-                <div class="fee-box">
-                  <div class="fee-row"><div class="fee-lbl">Network Member fee (first)</div><div class="fee-val">₹500</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Participant Upgrade (one-time)</div><div class="fee-val">₹5,000</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Annual Fee</div><div class="fee-val" style="color:var(--green);">None</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Platform Cut on Earnings</div><div class="fee-val" style="color:var(--green);">None</div></div>
-                  <div class="fee-note-sm">Participant status is available only to existing Network Members. It cannot be applied for directly. Members request upgrade to info@mahayukti.com once accepted as Members.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div style="text-align:center;padding:12px 0;color:rgba(201,148,58,.35);font-size:18px;">↓</div>
-
-        <div class="layer-detail">
-          <div class="ld-hdr ld-hdr-network">
-            <div class="ld-left"><div class="ld-icon">◇</div><div class="ld-name">Network Members</div><div class="ld-badge-sm">Open Application · Scrutiny Required</div></div>
-            <div class="ld-fee-display">₹500 One-Time · Non-Refundable</div>
-          </div>
-          <div class="ld-body">
-            <div class="ld-grid">
-              <div>
-                <div class="ld-col-title">Access &amp; Privileges</div>
-                <ul class="perk-list">
-                  <li><span class="perk-dot">◆</span>Verified MahaYukti membership credential — printable and digital</li>
-                  <li><span class="perk-dot">◆</span>Network directory listing visible to clients and other members</li>
-                  <li><span class="perk-dot">◆</span>Lead and referral routing through the network</li>
-                  <li><span class="perk-dot">◆</span>MY Help community — peer connections and mentoring</li>
-                  <li><span class="perk-dot">◆</span>Cross-domain professional introductions pan-India</li>
-                  <li><span class="perk-dot">◆</span>Buyer–seller and service provider–client connections</li>
-                  <li><span class="perk-dot">◆</span>Path to ACG invitation based on contribution and fit</li>
-                </ul>
-              </div>
-              <div>
-                <div class="ld-col-title">Fee Structure</div>
-                <div class="fee-box">
-                  <div class="fee-row"><div class="fee-lbl">One-Time Registration</div><div class="fee-val">₹500</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Annual Fee</div><div class="fee-val" style="color:var(--green);">None</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Platform Cut on Earnings</div><div class="fee-val" style="color:var(--green);">None</div></div>
-                  <div class="fee-row"><div class="fee-lbl">Fees Between Members</div><div class="fee-val" style="color:var(--green);">None</div></div>
-                  <div class="fee-note-sm">The ₹500 registration fee is one-time and non-refundable. Payment details are provided upon acceptance. There are no recurring charges at this layer.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- COMPARISON TABLE -->
-      <div class="rv" style="margin-top:60px;">
-        <p class="eyebrow">Access Comparison</p>
-        <h2 class="h2" style="font-size:clamp(24px,2.8vw,40px);margin-bottom:24px;">What each layer <em>gets you.</em></h2>
-        <div style="overflow-x:auto;">
-          <table class="comp-table">
-            <thead>
-              <tr><th style="width:28%">Feature</th><th>Network Member</th><th>Participant</th><th>ACG Member</th><th>Council</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Verified Membership Credential</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓ Council Certificate</td></tr>
-              <tr><td>Directory Listing</td><td class="check">✓</td><td class="check highlight-cell">✓ Active Service Listing</td><td class="check">✓</td><td class="check">✓</td></tr>
-              <tr><td>Lead &amp; Referral Routing</td><td class="check">✓</td><td class="check highlight-cell">✓ Priority</td><td class="check highlight-cell">✓ First</td><td class="check">✓</td></tr>
-              <tr><td>MY Help Community</td><td class="check">✓ Peer</td><td class="check highlight-cell">✓ + Mentoring</td><td class="check">✓</td><td class="check">✓</td></tr>
-              <tr><td>Domain Forums</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
-              <tr><td>Internal Business Mandates</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td><td class="check highlight-cell">✓ Priority</td></tr>
-              <tr><td>MY Advisory &amp; Consultancy</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
-              <tr><td>MY Concierge Access</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
-              <tr><td>ACG Selection Rights</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight-cell">✓ Council Vote</td></tr>
-              <tr><td>Network Governance</td><td class="cross">✗</td><td class="cross">✗</td><td class="cross">✗</td><td class="check highlight-cell">✓ Full</td></tr>
-              <tr><td>Total Fee</td><td>₹500</td><td>₹5,500</td><td>₹5,500 + ₹25,000/yr</td><td class="highlight-cell">None · Ever</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- ALL DOMAINS -->
-      <div class="rv" style="margin-top:60px;">
-        <p class="eyebrow">Open to Every Domain</p>
-        <h2 class="h2" style="font-size:clamp(24px,2.8vw,40px);margin-bottom:8px;">If your expertise has value,<br><em>there is a place for you here.</em></h2>
-        <p class="body-md" style="margin-bottom:32px;max-width:580px;">MahaYukti is not limited to any sector or profession. The following domains are already represented — and if yours is not listed, it is welcome.</p>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;" class="domain-matrix">
-<div class="dm-cell"><div class="dm-name">Legal</div><div class="dm-sub">Advocates · Corporate · Compliance · Contracts</div></div>
-<div class="dm-cell"><div class="dm-name">Finance &amp; Banking</div><div class="dm-sub">Investment · Wealth · M&amp;A · Corporate Finance</div></div>
-<div class="dm-cell"><div class="dm-name">Technology</div><div class="dm-sub">Software · DevOps · Cloud · Architecture</div></div>
-<div class="dm-cell"><div class="dm-name">Cybersecurity</div><div class="dm-sub">VAPT · Red Team · Threat Intel · SOC</div></div>
-<div class="dm-cell"><div class="dm-name">Medicine &amp; Healthcare</div><div class="dm-sub">Clinical · Hospital · Pharma · Public Health</div></div>
-<div class="dm-cell"><div class="dm-name">Intelligence &amp; Research</div><div class="dm-sub">OSINT · Political · Policy · Analysis</div></div>
-<div class="dm-cell"><div class="dm-name">Real Estate</div><div class="dm-sub">Development · Advisory · Infrastructure</div></div>
-<div class="dm-cell"><div class="dm-name">Media &amp; Entertainment</div><div class="dm-sub">Journalism · Production · PR · Content</div></div>
-<div class="dm-cell"><div class="dm-name">Strategy &amp; Management</div><div class="dm-sub">Consulting · Operations · Turnaround</div></div>
-<div class="dm-cell"><div class="dm-name">Politics &amp; Public Affairs</div><div class="dm-sub">Political Advisory · Policy · Campaigns</div></div>
-<div class="dm-cell"><div class="dm-name">Manufacturing &amp; Industrial</div><div class="dm-sub">Plant Setup · DPR · Process · MSME</div></div>
-<div class="dm-cell"><div class="dm-name">Food &amp; Beverage</div><div class="dm-sub">F&amp;B Brands · Restaurants · FMCG · Hospitality</div></div>
-<div class="dm-cell"><div class="dm-name">Venture Capital &amp; PE</div><div class="dm-sub">VCs · Angel Investors · Family Offices · PE Funds</div></div>
-<div class="dm-cell"><div class="dm-name">Banking &amp; NBFCs</div><div class="dm-sub">Commercial Banks · NBFCs · Microfinance · Fintech</div></div>
-<div class="dm-cell"><div class="dm-name">Corporates &amp; MNCs</div><div class="dm-sub">Corporate Affairs · Strategy · Operations · HR</div></div>
-<div class="dm-cell"><div class="dm-name">Logistics &amp; Supply Chain</div><div class="dm-sub">Freight · Warehousing · Last Mile · Trade</div></div>
-<div class="dm-cell"><div class="dm-name">Agriculture &amp; Agritech</div><div class="dm-sub">Farming · AgriFinance · Supply Chain · Tech</div></div>
-<div class="dm-cell"><div class="dm-name">Retail &amp; E-Commerce</div><div class="dm-sub">Brands · D2C · Marketplace · Distribution</div></div>
-<div class="dm-cell"><div class="dm-name">Hospitality &amp; Tourism</div><div class="dm-sub">Hotels · Travel · Events · Experience</div></div>
-<div class="dm-cell"><div class="dm-name">Education &amp; Academia</div><div class="dm-sub">EdTech · Universities · Research · Training</div></div>
-<div class="dm-cell"><div class="dm-name">Sports &amp; Athletics</div><div class="dm-sub">Athletes · Agents · Sports Management · Brands</div></div>
-<div class="dm-cell"><div class="dm-name">Architecture &amp; Urban Planning</div><div class="dm-sub">Architects · Planners · Interior · Infrastructure</div></div>
-<div class="dm-cell"><div class="dm-name">Pharmaceuticals</div><div class="dm-sub">Pharma · Biotech · Clinical Research · Regulatory</div></div>
-<div class="dm-cell"><div class="dm-name">Defence &amp; Security</div><div class="dm-sub">Veterans · Security Consulting · Intelligence</div></div>
-<div class="dm-cell"><div class="dm-name">Energy &amp; Renewables</div><div class="dm-sub">Solar · Wind · Oil &amp; Gas · Energy Finance</div></div>
-<div class="dm-cell"><div class="dm-name">Insurance</div><div class="dm-sub">Life · General · Health · Actuarial · InsurTech</div></div>
-<div class="dm-cell"><div class="dm-name">Shipping &amp; Maritime</div><div class="dm-sub">Shipping · Ports · Logistics · Trade Finance</div></div>
-<div class="dm-cell"><div class="dm-name">Aviation</div><div class="dm-sub">Airlines · MRO · Aviation Finance · Operations</div></div>
-<div class="dm-cell"><div class="dm-name">Non-Profit &amp; NGOs</div><div class="dm-sub">Development · CSR · Social Impact · Policy</div></div>
-<div class="dm-cell"><div class="dm-name">Any Domain</div><div class="dm-sub">If your expertise has value — you belong here</div></div>
-        </div>
-      </div>
-      <div style="text-align:center;margin-top:48px;" class="rv">
-        <a class="btn btn-gold" href="mailto:info@mahayukti.com?subject=Network Membership Application">Apply via Email</a>
-        <p style="font-size:12px;color:rgba(255,255,255,.28);margin-top:14px;letter-spacing:.5px;">Write to info@mahayukti.com · All applications reviewed individually · Complete confidentiality guaranteed</p>
-      </div>
-    </div>
-  </div>
-</div><!-- /network -->
-
-<!-- ═══════════════════════════════════════════
-     PAGE: VERTICALS
-═══════════════════════════════════════════ -->
-<div class="page" id="pg-verticals">
-  <div class="vert-hero">
-    <div class="wrap" style="padding-top:120px;">
-      <div class="rv" style="text-align:center;margin-bottom:64px;">
-        <p class="eyebrow" style="text-align:center">MahaYukti Verticals</p>
-        <h1 class="h1" style="text-align:center;max-width:680px;margin:0 auto 16px;">Four verticals.<br><em>One ecosystem.</em></h1>
-        <p class="body-lg" style="text-align:center;max-width:520px;margin:0 auto;">Every need. Every scale. From structured advisory to discreet personal facilitation.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- MY ADVISORY -->
-  <div class="vert-detail">
-    <div class="wrap">
-      <div class="vert-grid rv">
-        <div>
-          <div class="vert-num">01</div>
-          <p class="eyebrow">Vertical One</p>
-          <h2 class="h2">MY <em>Advisory</em></h2>
-          <div class="gold-bar"></div>
-          <p class="body-lg">Research, analysis, strategic intelligence, and counsel — for corporates, SMEs, political clients, and institutions that require expert-led advisory across complex mandates.</p>
-          <div class="vert-features" style="margin-top:28px;">
-            <div class="vf"><div class="vf-icon">📊</div><div class="vf-name">Corporate Intelligence</div><div class="vf-desc">Competitive analysis, M&amp;A due diligence, market entry research and sector intelligence briefs.</div></div>
-            <div class="vf"><div class="vf-icon">🏛</div><div class="vf-name">Political Research</div><div class="vf-desc">Opposition research, constituency analysis, policy impact assessment — with absolute confidentiality.</div></div>
-            <div class="vf"><div class="vf-icon">◎</div><div class="vf-name">Strategic Analysis</div><div class="vf-desc">Board-level strategic advisory, turnaround analysis, organisational assessments and investment thesis.</div></div>
-            <div class="vf"><div class="vf-icon">🌐</div><div class="vf-name">Market Research</div><div class="vf-desc">Primary and secondary research, sector reports, consumer intelligence and trend analysis.</div></div>
-          </div>
-        </div>
-        <div>
-          <div class="ld-col-title">Real Engagements</div>
-          <div class="use-cases">
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Corporate Due Diligence</div><div class="uc-body">A corporate client planning an acquisition needs background intelligence. A legal expert, forensic CA, market researcher, and OSINT specialist coordinate through MY Advisory to deliver one complete intelligence brief.</div></div></div>
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Political Intelligence</div><div class="uc-body">A political organisation requires constituency sentiment analysis. A data scientist, political researcher, and ground journalist coordinate to deliver verified electoral intelligence — with complete confidentiality.</div></div></div>
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Market Entry Strategy</div><div class="uc-body">An international client entering India needs a comprehensive market intelligence brief. A sector researcher, regulatory specialist, and strategy consultant deliver a complete picture — one brief, multiple experts.</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MY CONSULTANCY -->
-  <div class="vert-detail" style="background:rgba(255,255,255,.015);">
-    <div class="wrap">
-      <div class="vert-grid rv">
-        <div>
-          <div class="vert-num">02</div>
-          <p class="eyebrow">Vertical Two</p>
-          <h2 class="h2">MY <em>Consultancy</em></h2>
-          <div class="gold-bar"></div>
-          <p class="body-lg">Expert-to-client professional services across every domain — the right expert, matched to the right client, for the right mandate. From first-generation entrepreneurs to listed corporations.</p>
-          <div class="vert-features" style="margin-top:28px;">
-            <div class="vf"><div class="vf-icon">⚖</div><div class="vf-name">Legal Services</div><div class="vf-desc">Contracts, compliance, corporate law, litigation support — structured per BCI guidelines.</div></div>
-            <div class="vf"><div class="vf-icon">📈</div><div class="vf-name">Financial Advisory</div><div class="vf-desc">Investment, wealth management, M&amp;A, DPR preparation, and financial due diligence.</div></div>
-            <div class="vf"><div class="vf-icon">⚡</div><div class="vf-name">Technology</div><div class="vf-desc">IT infrastructure, digital transformation, cybersecurity, and systems architecture.</div></div>
-            <div class="vf"><div class="vf-icon">✦</div><div class="vf-name">Domain Consulting</div><div class="vf-desc">Healthcare, manufacturing, HR, media strategy, real estate — every domain, one network.</div></div>
-          </div>
-        </div>
-        <div>
-          <div class="ld-col-title">Who We Serve</div>
-          <div class="use-cases">
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">First-Generation Entrepreneurs</div><div class="uc-body">A first-generation entrepreneur in Tier II India needs a DPR for a bank loan, legal structure advice, and a market feasibility study. MY Consultancy coordinates a CA, a lawyer, and a market researcher — one client, complete solution.</div></div></div>
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Scaling Startups</div><div class="uc-body">A Series A startup needs HR architecture, employment contracts, and compensation benchmarking. MY Consultancy matches them with an HR consultant, legal expert, and financial advisor who work in coordination.</div></div></div>
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Individuals &amp; Families</div><div class="uc-body">A complex legal and financial situation — a property dispute, succession planning, or overseas asset matter — gets coordinated legal, financial, and advisory expertise through MY Consultancy.</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MY CONCIERGE -->
-  <div class="vert-detail">
-    <div class="wrap">
-      <div style="text-align:center;max-width:700px;margin:0 auto;" class="rv">
-        <div class="vert-num" style="font-size:80px;">03</div>
-        <p class="eyebrow" style="text-align:center">Vertical Three</p>
-        <h2 class="h2" style="text-align:center">MY <em>Concierge</em></h2>
-        <div class="gold-bar" style="margin:18px auto;"></div>
-        <p class="body-lg" style="text-align:center;margin-bottom:40px;">Whatever you need. Whenever you need it. Handled. Some situations require more than a single professional — they require a coordinated network, discreet and available at any hour, that knows exactly who to call.</p>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left;margin-bottom:40px;">
-          <div class="vf"><div class="vf-icon">⚖</div><div class="vf-name">Legal &amp; Jurisdictional</div><div class="vf-desc">Cross-border navigation, regulatory compliance, documentation across jurisdictions.</div></div>
-          <div class="vf"><div class="vf-icon">🛡</div><div class="vf-name">Personal &amp; Reputational</div><div class="vf-desc">Discreet management of sensitive personal, professional, and reputational circumstances.</div></div>
-          <div class="vf"><div class="vf-icon">◈</div><div class="vf-name">Crisis &amp; Time-Critical</div><div class="vf-desc">Round-the-clock coordination of the right experts for situations that cannot wait.</div></div>
-        </div>
-        <div style="background:rgba(201,148,58,.06);border:1px solid var(--border);border-radius:var(--r);padding:28px 32px;margin-bottom:32px;">
-          <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:16px;">MY Concierge is not a public service. It is a private one — accessible to MahaYukti members and referred clients only. The first conversation is always confidential.</p>
-          <a class="btn btn-gold btn-sm" href="mailto:info@mahayukti.com?subject=MY Concierge — Enquiry">Enquire Privately</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MY HELP -->
-  <div class="vert-detail" style="background:rgba(255,255,255,.015);">
-    <div class="wrap">
-      <div class="vert-grid rv">
-        <div>
-          <div class="vert-num">04</div>
-          <p class="eyebrow">Vertical Four</p>
-          <h2 class="h2">MY <em>Help</em></h2>
-          <div class="gold-bar"></div>
-          <p class="body-lg">The community layer — where professionals connect within and across domains, buyers find sellers, service providers find clients, and veterans mentor the next generation. No transaction fees. No platform cuts. Pure professional community.</p>
-          <div class="vert-features" style="margin-top:28px;">
-            <div class="vf"><div class="vf-icon">◇</div><div class="vf-name">Peer Networking</div><div class="vf-desc">Connect with professionals in your domain and adjacent ones across India.</div></div>
-            <div class="vf"><div class="vf-icon">🎓</div><div class="vf-name">Mentoring</div><div class="vf-desc">Veterans mentor freshers — compressing years of relationship-building into structured access.</div></div>
-            <div class="vf"><div class="vf-icon">🤝</div><div class="vf-name">Professional Referrals</div><div class="vf-desc">Members refer work within the network — creating a self-sustaining referral ecosystem.</div></div>
-            <div class="vf"><div class="vf-icon">💡</div><div class="vf-name">Knowledge Exchange</div><div class="vf-desc">Domain expertise shared across the network — individual knowledge becomes collective intelligence.</div></div>
-          </div>
-        </div>
-        <div>
-          <div class="ld-col-title">Connections That Happen</div>
-          <div class="use-cases">
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Doctor finds Hospital Partner</div><div class="uc-body">A specialist in Hyderabad connects with a hospital group in Delhi exploring clinical partnerships — through MY Help.</div></div></div>
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Founder finds Advisor</div><div class="uc-body">A first-time founder in Bengaluru connects with a seasoned startup advisor in Mumbai who has been where they are going.</div></div></div>
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Lawyer finds CA Partner</div><div class="uc-body">A corporate lawyer in Chennai connects with a forensic CA in Ahmedabad for a complex corporate dispute — cross-domain, seamless.</div></div></div>
-            <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Fresher finds Veteran</div><div class="uc-body">A law graduate in Patna is paired with a senior corporate advocate in Delhi — building in three months what otherwise takes three years.</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- /verticals -->
-
-<!-- ═══════════════════════════════════════════
-     PAGE: FOUNDING
-═══════════════════════════════════════════ -->
-<div class="page" id="pg-founding">
-  <div class="founding-hero">
-    <div class="wrap" style="padding-top:120px;">
-      <div class="rv">
-        <p class="eyebrow" style="text-align:center">Phase 1 — Now Open</p>
-        <h1 class="h1" style="text-align:center;max-width:720px;margin:0 auto 16px;">Plant the <em>mango tree.</em></h1>
-        <p class="body-lg" style="text-align:center;max-width:620px;margin:0 auto 24px;">Founding Membership is not a job offer. It is an invitation to plant something. You do not get paid today — but the person who plants the tree is not the same as the person who simply buys the fruit later.</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <span class="badge" style="background:rgba(224,85,85,.1);border-color:rgba(224,85,85,.3);color:#e05555;">Phase 1 · Applications Closed</span>
-          <span class="badge badge-ghost">No Fees · Ever</span>
-          <span class="badge badge-ghost">Permanent Status</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="accent"></div>
-
-  <!-- WHAT FOUNDING MEANS -->
-  <section class="section">
-    <div class="wrap">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;" class="rv">
-        <div>
-          <p class="eyebrow">What It Means</p>
-          <h2 class="h2" style="font-size:clamp(28px,3vw,44px);">Not a job.<br>Not a gig.<br><em>A founding role.</em></h2>
-          <div class="gold-bar"></div>
-          <p class="body-md">MahaYukti is at seed stage. We are selecting a limited cohort of professionals across three domains who will help shape the network from the ground up.</p>
-          <p class="body-md" style="margin-top:12px;">No commitment. No non-compete. No exclusivity. Founding membership is a lifetime tag — on your terms, always. Contribute when you want. Step back when you need to. The tag stays regardless.</p>
-          <div class="mango-box" style="margin-top:24px;">
-            <div class="mango-label">The Community Principle</div>
-            <div class="mango-text">By you. For you. Of you. The network is designed to run on its own — powered by its members. Admin is simply its guardian, involved only in cases of internal dispute.</div>
-          </div>
-        </div>
-        <div>
-          <p class="eyebrow">What You Receive</p>
-          <div class="founding-perks">
-            <div class="fp-item"><div class="fp-icon">◈</div><div><div class="fp-title">Permanent Founding Status</div><div class="fp-body">A distinction that will never be re-issued. When thousands join in Phase 2, you will always be a Founder. A permanent place in the network's founding record.</div></div></div>
-            <div class="fp-item"><div class="fp-icon">◆</div><div><div class="fp-title">Senior Consultant &amp; Trusted Counsel</div><div class="fp-body">You are not a member — you are counsel. You advise Admin on domain decisions and help govern the network's direction and standards.</div></div></div>
-            <div class="fp-item"><div class="fp-icon">→</div><div><div class="fp-title">Founding Council Seat</div><div class="fp-body">Founding Members form the council that selects future ACG members. You shape who gets into the inner circle — permanently.</div></div></div>
-            <div class="fp-item"><div class="fp-icon">⚡</div><div><div class="fp-title">All ACG Privileges — Free</div><div class="fp-body">Full access to internal mandates, MY Advisory, MY Consultancy, MY Concierge — at no cost, forever. No annual fee. No registration fee. Ever.</div></div></div>
-            <div class="fp-item"><div class="fp-icon">◇</div><div><div class="fp-title">Founding Member Certificate</div><div class="fp-body">A formal, signed credential. Permanent, printable, professionally citable. Never re-issued after Phase 1 closes.</div></div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <div class="accent"></div>
-
-  <!-- THREE DOMAINS -->
-  <section class="section" style="background:rgba(255,255,255,.015);">
-    <div class="wrap">
-      <div class="rv" style="text-align:center;margin-bottom:56px;">
-        <p class="eyebrow" style="text-align:center">Three Domains · Phase 1</p>
-        <h2 class="h2" style="text-align:center">We are looking for<br><em>these professionals.</em></h2>
-      </div>
-
-      <!-- TECH -->
-      <div class="founding-domain-section rv">
-        <div class="domain-grid">
-          <div class="domain-card-big domain-tech-bg">
-            <div class="domain-icon-big">⚡</div>
-            <div class="domain-name-big">Technology &amp; Cybersecurity</div>
-            <p class="body-md" style="margin-bottom:16px;">Build the network's digital foundation — infrastructure, security, internal systems, and the technology that powers every mandate MahaYukti delivers.</p>
-            <div class="domain-roles">
-              <div class="domain-role">Software Engineers &amp; Full-Stack Developers</div>
-              <div class="domain-role">Solution Architects &amp; Cloud Specialists</div>
-              <div class="domain-role">DevOps &amp; Infrastructure Engineers</div>
-              <div class="domain-role">Cybersecurity Analysts &amp; Penetration Testers</div>
-              <div class="domain-role">Network Security &amp; VAPT Specialists</div>
-              <div class="domain-role">AI/ML &amp; Data Engineering Professionals</div>
-            </div>
-            <div style="margin-top:24px;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#e05555;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border:1px solid rgba(224,85,85,.25);border-radius:2px;">Applications Closed</span></div>
-          </div>
-          <div>
-            <p class="eyebrow">Your Contribution</p>
-            <div class="use-cases">
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Infrastructure &amp; Security</div><div class="uc-body">Advise on and help establish MahaYukti's digital infrastructure, security baseline, and internal communication architecture.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Internal Tooling</div><div class="uc-body">Shape the internal systems that power member management, mandate routing, and network operations.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">First Mandates</div><div class="uc-body">Deliver the first wave of technology and cybersecurity mandates for early clients through MY Consultancy.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Define Standards</div><div class="uc-body">Set the standards by which all future Technology and Cybersecurity members are onboarded and evaluated.</div></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- LEGAL -->
-      <div class="founding-domain-section rv">
-        <div class="domain-grid">
-          <div class="domain-card-big domain-legal-bg">
-            <div class="domain-icon-big">⚖</div>
-            <div class="domain-name-big">Legal Professionals</div>
-            <p class="body-md" style="margin-bottom:16px;">Write the legal backbone of the network — member agreements, compliance architecture, and the frameworks that govern every engagement MahaYukti delivers.</p>
-            <div class="domain-roles">
-              <div class="domain-role">Advocates &amp; Litigation Professionals</div>
-              <div class="domain-role">Corporate &amp; Commercial Lawyers</div>
-              <div class="domain-role">Compliance &amp; Regulatory Specialists</div>
-              <div class="domain-role">Contract &amp; Transaction Lawyers</div>
-              <div class="domain-role">Legal Researchers &amp; Policy Analysts</div>
-              <div class="domain-role">Cyber Law &amp; Technology Law Specialists</div>
-            </div>
-            <div style="margin-top:24px;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#e05555;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border:1px solid rgba(224,85,85,.25);border-radius:2px;">Applications Closed</span></div>
-          </div>
-          <div>
-            <p class="eyebrow">Your Contribution</p>
-            <div class="use-cases">
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Legal Frameworks</div><div class="uc-body">Draft and refine the Member Agreement, Client Engagement Terms, NDA frameworks, and all foundational legal documents.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Compliance Architecture</div><div class="uc-body">Establish how regulated services flow through the network in compliance with BCI and relevant professional guidelines.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">First Mandates</div><div class="uc-body">Deliver the first wave of legal mandates for early clients through MY Consultancy.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Legal Cover</div><div class="uc-body">Provide legal cover and governance guidance for a ghost network operating across multiple domains and jurisdictions.</div></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- CA -->
-      <div class="founding-domain-section rv">
-        <div class="domain-grid">
-          <div class="domain-card-big domain-ca-bg">
-            <div class="domain-icon-big">🔢</div>
-            <div class="domain-name-big">CA &amp; Finance</div>
-            <p class="body-md" style="margin-bottom:16px;">Build the financial conscience of the network — governance frameworks, financial templates, and the forensic and advisory infrastructure that underpins every mandate.</p>
-            <div class="domain-roles">
-              <div class="domain-role">Practising Chartered Accountants</div>
-              <div class="domain-role">Forensic Accountants &amp; Fraud Investigators</div>
-              <div class="domain-role">Statutory Auditors &amp; Compliance CAs</div>
-              <div class="domain-role">Tax Advisors &amp; Transfer Pricing Specialists</div>
-              <div class="domain-role">Financial Analysts &amp; Investment Professionals</div>
-              <div class="domain-role">Cost &amp; Management Accountants</div>
-            </div>
-            <div style="margin-top:24px;"><span style="display:inline-block;font-size:11px;font-weight:600;color:#e05555;letter-spacing:1.5px;text-transform:uppercase;padding:8px 16px;border:1px solid rgba(224,85,85,.25);border-radius:2px;">Applications Closed</span></div>
-          </div>
-          <div>
-            <p class="eyebrow">Your Contribution</p>
-            <div class="use-cases">
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Financial Governance</div><div class="uc-body">Establish MahaYukti's internal financial governance and the frameworks for how the network manages its own finances.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Advisory Templates</div><div class="uc-body">Build the forensic and financial advisory templates that Phase 2 client mandates will be based on.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">First Mandates</div><div class="uc-body">Deliver the first wave of CA and forensic mandates for early clients through MY Consultancy.</div></div></div>
-              <div class="uc"><div class="uc-dot">◆</div><div><div class="uc-title">Financial Oversight</div><div class="uc-body">Provide financial and forensic oversight for a ghost network — ensuring compliance with ICAI and all applicable guidelines.</div></div></div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FOUNDING CTA -->
-      <div class="founding-cta-box rv">
-        <p class="eyebrow" style="text-align:center">Phase 1 — Closed</p>
-        <h2 class="h2" style="text-align:center;font-size:clamp(26px,3vw,40px);margin-bottom:16px;">Review in <em>progress.</em></h2>
-        <p class="body-md" style="text-align:center;max-width:520px;margin:0 auto 28px;">Phase 1 Founding Member applications are closed. If you submitted an application, you will be contacted by Admin directly. If you missed Phase 1, you can still join as a Network Member and be considered for the ACG in Phase 2.</p>
-        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-          <a class="btn btn-gold" onclick="goto('network')">Join as Network Member</a>
-          <a class="btn btn-outline" onclick="goto('contact')">Contact Us</a>
-        </div>
-        <p style="font-size:12px;color:rgba(255,255,255,.25);margin-top:16px;text-align:center;">info@mahayukti.com · All applications reviewed with complete confidentiality</p>
-      </div>
-    </div>
-  </section>
-</div><!-- /founding -->
-
-<!-- ═══════════════════════════════════════════
-     PAGE: CONTACT
-═══════════════════════════════════════════ -->
-<div class="page" id="pg-contact">
-  <div class="contact-hero">
-    <div class="wrap" style="padding-top:120px;">
-      <div class="rv" style="text-align:center;margin-bottom:16px;">
-        <p class="eyebrow" style="text-align:center">Get in Touch</p>
-        <h1 class="h1" style="text-align:center;max-width:640px;margin:0 auto 16px;">The first conversation<br>is always <em>confidential.</em></h1>
-        <p class="body-lg" style="text-align:center;max-width:500px;margin:0 auto;">Write to us directly. Every enquiry is reviewed by Admin personally and responded to individually.</p>
-      </div>
-      <div class="contact-grid rv">
-        <div class="contact-card">
-          <div class="cc-icon">✉</div>
-          <div class="cc-title">Email Admin</div>
-          <div class="cc-desc">Write to us at any time. All communications are treated with complete confidentiality. We respond to every email within 48 hours.</div>
-          <div class="cc-val"><a href="mailto:info@mahayukti.com" style="color:var(--gold);">info@mahayukti.com</a></div>
-          <div class="contact-subject-list" style="margin-top:16px;">
-            <div class="cs-item">Network Membership Application</div>
-            <div class="cs-item" style="opacity:.4;text-decoration:line-through;">Founding Member (Phase 1 Closed)</div>
-            <div class="cs-item">MY Concierge — Enquiry</div>
-            <div class="cs-item">Client Engagement — MY Advisory</div>
-            <div class="cs-item">General Enquiry</div>
-          </div>
-        </div>
-        <div class="contact-card">
-          <div class="cc-icon">◈</div>
-          <div class="cc-title">How to Write to Us</div>
-          <div class="cc-desc">Use the subject line format below for the fastest response. Include your name, city, domain, and a brief introduction.</div>
-          <div style="display:flex;flex-direction:column;gap:12px;margin-top:16px;">
-            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;">
-              <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Network Membership</div>
-              <div style="font-size:13px;color:rgba(255,255,255,.50);">Subject: Network Membership · [Domain] · [City]</div>
-            </div>
-            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;">
-              <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Founding Member</div>
-              <div style="font-size:13px;color:rgba(255,255,255,.50);">Subject: Founding Member · [Technology / Legal / CA]</div>
-            </div>
-            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;">
-              <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">MY Concierge</div>
-              <div style="font-size:13px;color:rgba(255,255,255,.50);">Subject: MY Concierge · Enquiry</div>
-            </div>
-            <div style="background:rgba(255,255,255,.03);border:1px solid var(--border2);border-radius:var(--r);padding:14px 16px;">
-              <div style="font-size:10px;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">ACG Acceptance</div>
-              <div style="font-size:13px;color:rgba(255,255,255,.50);">Subject: ACG Acceptance · [Name] · Annual / Lifetime</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-top:64px;text-align:center;" class="rv">
-        <div style="background:rgba(201,148,58,.06);border:1px solid var(--border);border-radius:var(--r);padding:44px;max-width:680px;margin:0 auto;">
-          <p class="eyebrow" style="text-align:center">Apply Now</p>
-          <h2 class="h2" style="text-align:center;font-size:clamp(26px,3vw,40px);margin-bottom:16px;">Ready to join <em>MahaYukti?</em></h2>
-          <p class="body-md" style="text-align:center;margin:0 auto 28px;max-width:460px;">Network Membership: ₹500 one-time registration, non-refundable. Payment details provided upon acceptance.</p>
-          <a class="btn btn-gold" href="mailto:info@mahayukti.com?subject=Network Membership Application">Write to info@mahayukti.com</a>
-          <p style="font-size:12px;color:rgba(255,255,255,.22);margin-top:14px;">All applications reviewed individually · 5–7 working days · Complete confidentiality</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- /contact -->
-
-
-
-<!-- ═══════════════════════════════════════════
-     PAGE: JOIN / APPLY — NEW DESIGN
-═══════════════════════════════════════════ -->
-<div class="page" id="pg-join">
-<div class="j-wrap">
-<div class="j-grid">
-<!-- LEFT -->
-<div class="j-left">
-  <div class="j-eyebrow">Apply for Membership</div>
-  <h1 class="j-headline">Join India's<br>first <em>private</em><br>professional<br>network.</h1>
-  <div class="j-gl"></div>
-  <p class="j-sub">Every application is reviewed personally by Admin. Admission is by scrutiny — not everyone who applies is accepted. That is what makes the network valuable.</p>
-  <div class="j-stats">
-    <div class="j-stat"><div class="j-sn">30+</div><div class="j-sl">Domains</div></div>
-    <div class="j-stat"><div class="j-sn">5</div><div class="j-sl">Network Layers</div></div>
-    <div class="j-stat"><div class="j-sn">0%</div><div class="j-sl">Platform Cut</div></div>
-    <div class="j-stat"><div class="j-sn">Pan</div><div class="j-sl">India Coverage</div></div>
-  </div>
-  <div class="j-layers">
-    <div class="j-layer"><div class="jl-ic">◈</div><div class="jl-nm">Network Council</div><div class="jl-tg closed">Invite Only</div></div>
-    <div class="j-layer"><div class="jl-ic">◆</div><div class="jl-nm">Advisory &amp; Consulting Group</div><div class="jl-tg closed">By Selection</div></div>
-    <div class="j-layer hl"><div class="jl-ic">◇</div><div class="jl-nm">Network Participant</div><div class="jl-tg open">Apply Here</div></div>
-    <div class="j-layer hl"><div class="jl-ic">○</div><div class="jl-nm">Network Member</div><div class="jl-tg open">Apply Here</div></div>
-  </div>
-  <div class="j-trust">
-    <div class="j-ti"><span class="j-td">✓</span>All information kept strictly confidential</div>
-    <div class="j-ti"><span class="j-td">✓</span>Every application reviewed personally by Admin</div>
-    <div class="j-ti"><span class="j-td">✓</span>Response within 5–7 working days</div>
-    <div class="j-ti"><span class="j-td">✓</span>No fees between members · No platform cut</div>
-    <div class="j-ti"><span class="j-td">✓</span>Prefer email? Write to info@mahayukti.com</div>
-  </div>
-</div>
-<!-- RIGHT FORM -->
-<div>
-<div class="fw">
-  <div class="jpb"><div class="jpf" id="jP"></div></div>
-  <div class="j-tabs">
-    <div class="j-tab active" id="jT1">Track</div>
-    <div class="j-tab" id="jT2">Personal</div>
-    <div class="j-tab" id="jT3">Professional</div>
-    <div class="j-tab" id="jT4">Intent</div>
-    <div class="j-tab" id="jT5">Review</div>
-  </div>
-  <div class="j-fb">
-    <!-- S1 -->
-    <div class="j-step active" id="jS1">
-      <div class="j-st">Choose your track</div>
-      <div class="j-ss">Select the membership level that fits where you are right now.</div>
-      <div class="j-tg">
-        <div class="j-tc sel" id="jTCm" onclick="jST('member')"><div class="jtcc">✓</div><div class="jtci">○</div><div class="jtcn">Network <span>Member</span></div><div class="jtcd">Verified credential, directory listing, lead routing, MY Help community, peer connections pan-India.</div></div>
-        <div class="j-tc" id="jTCp" onclick="jST('participant')"><div class="jtcc"></div><div class="jtci">◇</div><div class="jtcn">Network <span>Participant</span></div><div class="jtcd">Active service listing, domain forums, priority referrals, mentoring, client visibility.</div><div class="jtcnt">Available to existing Members only</div></div>
-      </div>
-      <div class="j-ib"><div class="j-ibl" id="jIBL">Network Member includes</div><div class="j-ibb" id="jIBB">Verified credential · Directory listing · Lead &amp; referral routing · MY Help community · Cross-domain peer connections · Path to Participant and ACG</div></div>
-      <div class="j-nav"><div class="j-sc">Step 1 of 5</div><button class="j-bn" onclick="jN(1)">Continue →</button></div>
-    </div>
-    <!-- S2 -->
-    <div class="j-step" id="jS2">
-      <div class="j-st">Personal details</div>
-      <div class="j-ss">Your basic contact information — kept strictly confidential.</div>
-      <div class="j-fr">
-        <div class="j-f" id="jFw1"><label>First Name <span class="req">*</span></label><input type="text" id="jFN" placeholder="First name"><div class="j-em">Required</div></div>
-        <div class="j-f" id="jFw2"><label>Last Name <span class="req">*</span></label><input type="text" id="jLN" placeholder="Last name"><div class="j-em">Required</div></div>
-      </div>
-      <div class="j-f" id="jFw3"><label>Email Address <span class="req">*</span></label><input type="email" id="jEM" placeholder="your@email.com"><div class="j-em">Please enter a valid email</div></div>
-      <div class="j-f"><label>Mobile Number</label><input type="tel" id="jPH" placeholder="+91 XXXXX XXXXX"></div>
-      <div class="j-fr">
-        <div class="j-f" id="jFw4"><label>City <span class="req">*</span></label><input type="text" id="jCT" placeholder="Your city"><div class="j-em">Required</div></div>
-        <div class="j-f"><label>State</label><input type="text" id="jST2" placeholder="State"></div>
-      </div>
-      <div class="j-f"><label>Country</label><select id="jCO"><option>India</option><option>United Kingdom</option><option>United States</option><option>UAE</option><option>Singapore</option><option>Canada</option><option>Australia</option><option>Other</option></select></div>
-      <div class="j-f"><label>LinkedIn Profile URL</label><input type="url" id="jLI" placeholder="https://linkedin.com/in/yourprofile"><div class="j-fn">Optional but recommended — speeds up review.</div></div>
-      <div class="j-nav"><button class="j-bb" onclick="jPR(2)">← Back</button><div style="display:flex;align-items:center;gap:12px"><div class="j-sc">Step 2 of 5</div><button class="j-bn" onclick="jN(2)">Continue →</button></div></div>
-    </div>
-    <!-- S3 -->
-    <div class="j-step" id="jS3">
-      <div class="j-st">Professional details</div>
-      <div class="j-ss">Tell us about your domain and what you do.</div>
-      <div class="j-f" id="jFw5"><label>Primary Domain <span class="req">*</span></label>
-        <select id="jDO">
-          <option value="">Select your domain</option>
-          <option>Legal</option><option>Finance &amp; Banking</option><option>Technology &amp; IT</option><option>Cybersecurity</option><option>Medicine &amp; Healthcare</option><option>Strategy &amp; Management</option><option>Intelligence &amp; Research</option><option>Real Estate &amp; Infrastructure</option><option>Media, Arts &amp; Entertainment</option><option>Politics &amp; Public Affairs</option><option>Food &amp; Beverage</option><option>Venture Capital &amp; PE</option><option>Banking &amp; NBFCs</option><option>Corporates &amp; MNCs</option><option>Logistics &amp; Supply Chain</option><option>Agriculture &amp; Agritech</option><option>Retail &amp; E-Commerce</option><option>Hospitality &amp; Tourism</option><option>Education &amp; Academia</option><option>Manufacturing &amp; Industrial</option><option>Sports &amp; Athletics</option><option>Architecture &amp; Urban Planning</option><option>Pharmaceuticals</option><option>Defence &amp; Security</option><option>Energy &amp; Renewables</option><option>Insurance</option><option>Shipping &amp; Maritime</option><option>Aviation</option><option>Non-Profit &amp; NGOs</option><option>Other</option>
-        </select>
-        <div class="j-em">Please select your domain</div>
-      </div>
-      <div class="j-f" id="jFw6"><label>Current Role <span class="req">*</span></label><input type="text" id="jRO" placeholder="e.g. Senior Advocate, CTO, Investment Banker"><div class="j-em">Required</div></div>
-      <div class="j-f"><label>Organisation / Firm</label><input type="text" id="jOR" placeholder="Current organisation (if applicable)"></div>
-      <div class="j-fr">
-        <div class="j-f" id="jFw7"><label>Experience <span class="req">*</span></label><select id="jEX"><option value="">Select</option><option>0–1 years (Fresher)</option><option>1–3 years</option><option>3–5 years</option><option>5–10 years</option><option>10–20 years</option><option>20+ years (Veteran)</option></select><div class="j-em">Required</div></div>
-        <div class="j-f"><label>Qualification</label><input type="text" id="jQU" placeholder="e.g. LLB, CA, MBBS, MBA"></div>
-      </div>
-      <div class="j-nav"><button class="j-bb" onclick="jPR(3)">← Back</button><div style="display:flex;align-items:center;gap:12px"><div class="j-sc">Step 3 of 5</div><button class="j-bn" onclick="jN(3)">Continue →</button></div></div>
-    </div>
-    <!-- S4 -->
-    <div class="j-step" id="jS4">
-      <div class="j-st">Your intent</div>
-      <div class="j-ss">What are you looking for? Select all that apply.</div>
-      <div style="font-size:10px;font-weight:600;color:rgba(255,255,255,.35);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:9px;">Primary Intent <span style="color:var(--gold)">*</span></div>
-      <div class="j-ig">
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Client referrals &amp; mandates</div>
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Cross-domain collaboration</div>
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Mentoring — as a mentor</div>
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Seeking a mentor</div>
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Peer networking</div>
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Business development</div>
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Buyer / Seller connections</div>
-        <div class="j-io" onclick="jTI(this)"><div class="j-id"></div>Access to MY Concierge</div>
-      </div>
-      <div class="j-f" id="jFw8"><label>About You <span class="req">*</span></label><textarea id="jAB" placeholder="In 3–5 sentences — who are you professionally and what do you bring to a cross-domain professional network?"></textarea><div class="j-em">Please tell us about yourself</div></div>
-      <div class="j-f"><label>Anything Else</label><textarea id="jOT" style="min-height:65px;" placeholder="Specific connections you are looking for, questions for Admin, or anything else."></textarea></div>
-      <div class="j-nav"><button class="j-bb" onclick="jPR(4)">← Back</button><div style="display:flex;align-items:center;gap:12px"><div class="j-sc">Step 4 of 5</div><button class="j-bn" onclick="jN(4)">Review →</button></div></div>
-    </div>
-    <!-- S5 -->
-    <div class="j-step" id="jS5">
-      <div class="j-st">Review &amp; submit</div>
-      <div class="j-ss">Check your details. Admin reviews every application personally.</div>
-      <div class="j-rc" id="jRC"></div>
-      <div class="j-ag" onclick="document.getElementById('jAG').click()">
-        <input type="checkbox" id="jAG" onclick="event.stopPropagation()">
-        <div class="j-agt">I confirm the information provided is accurate. I understand MahaYukti may verify credentials and decline applications. I agree to uphold network standards. All information is treated with complete confidentiality.</div>
-      </div>
-      <button class="j-sb" id="jSB" onclick="jSub()">Submit Application</button>
-      <div class="j-dc">Reviewed individually · 5–7 working days · Complete confidentiality</div>
-    </div>
-    <!-- SUCCESS -->
-    <div class="j-suc" id="jSUC">
-      <div class="j-si">◈</div>
-      <div class="j-stitle">Application Received</div>
-      <div class="j-ssub">Thank you for applying to MahaYukti. Admin will review your application personally and be in touch within 5–7 working days. All information is kept strictly confidential.</div>
-      <div class="j-sid" id="jSID"></div>
-      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <button class="btn btn-outline btn-sm" onclick="goto('home')">← Back to Network</button>
-        <a class="btn btn-outline btn-sm" href="mailto:info@mahayukti.com">Write to Admin</a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-</div>
-</div>
-</div><!-- /join -->
-
-
-<!-- ═══════════════════════════════════════════
-     PAGE: BLOG — DYNAMIC
-═══════════════════════════════════════════ -->
-<div class="page" id="pg-blog">
-
-  <!-- BLOG LIST -->
-  <div id="blogList">
-    <div class="blog-hero">
-      <div class="wrap">
-        <div class="rv">
-          <p class="eyebrow" style="text-align:center">MahaYukti Blog</p>
-          <h1 class="h1" style="text-align:center;max-width:640px;margin:0 auto 16px;">Thinking about<br><em>professional India.</em></h1>
-          <p class="body-lg" style="text-align:center;max-width:480px;margin:0 auto 48px;">Perspectives on professional networks, cross-domain collaboration, and what it takes to build something that lasts.</p>
-        </div>
-        <!-- Loading skeleton -->
-        <div class="blog-grid-skeleton" id="blogSkeleton">
-          <div class="skeleton-card b-card b-featured" style="grid-column:span 3;min-height:220px;padding:0;border:1px solid var(--border2);border-radius:var(--r);overflow:hidden;display:grid;grid-template-columns:1.3fr 1fr;">
-            <div style="padding:44px;">
-              <div class="skeleton sk-line short" style="margin-bottom:16px;"></div>
-              <div class="skeleton sk-line title" style="height:32px;margin-bottom:10px;"></div>
-              <div class="skeleton sk-line title" style="height:32px;width:60%;margin-bottom:20px;"></div>
-              <div class="skeleton sk-line full" style="margin-bottom:8px;"></div>
-              <div class="skeleton sk-line med"></div>
-            </div>
-            <div class="skeleton" style="border-radius:0;opacity:.4;"></div>
-          </div>
-          <div class="skeleton-card"><div class="skeleton sk-line short" style="margin-bottom:14px;"></div><div class="skeleton sk-line title"></div><div class="skeleton sk-line full" style="margin-bottom:6px;"></div><div class="skeleton sk-line med"></div></div>
-          <div class="skeleton-card"><div class="skeleton sk-line short" style="margin-bottom:14px;"></div><div class="skeleton sk-line title"></div><div class="skeleton sk-line full" style="margin-bottom:6px;"></div><div class="skeleton sk-line med"></div></div>
-          <div class="skeleton-card"><div class="skeleton sk-line short" style="margin-bottom:14px;"></div><div class="skeleton sk-line title"></div><div class="skeleton sk-line full" style="margin-bottom:6px;"></div><div class="skeleton sk-line med"></div></div>
-          <div class="skeleton-card"><div class="skeleton sk-line short" style="margin-bottom:14px;"></div><div class="skeleton sk-line title"></div><div class="skeleton sk-line full" style="margin-bottom:6px;"></div><div class="skeleton sk-line med"></div></div>
-          <div class="skeleton-card"><div class="skeleton sk-line short" style="margin-bottom:14px;"></div><div class="skeleton sk-line title"></div><div class="skeleton sk-line full" style="margin-bottom:6px;"></div><div class="skeleton sk-line med"></div></div>
-        </div>
-        <!-- Actual posts grid -->
-        <div class="blog-grid" id="blogGrid" style="display:none;margin-top:0;"></div>
-        <!-- Error state -->
-        <div class="blog-error" id="blogError" style="display:none;">
-          <div class="blog-error-icon">◈</div>
-          <div class="blog-error-msg">Unable to load posts right now. Please try again shortly.</div>
-          <button class="btn btn-outline btn-sm" onclick="loadBlogPosts()">Try Again</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- POST OVERLAY — full screen scrollable post view -->
-  <div class="post-overlay" id="postOverlay">
-    <div class="post-progress"><div class="post-progress-fill" id="postProgress"></div></div>
-    <div class="post-close" onclick="closePost()">
-      <div class="post-close-line"></div>
-      <span>Back to Blog</span>
-    </div>
-    <div class="post-overlay-inner" id="postContent">
-      <!-- Populated dynamically -->
-    </div>
-  </div>
-
-</div><!-- /blog -->
-<!-- FOOTER -->
-<footer id="footer">
-  <div class="footer-grid">
-    <div>
-      <div class="f-brand">Maha<span>Yukti</span></div>
-      <div class="f-sub">Private Professional Network · Est. 2026</div>
-      <p class="f-desc">India's first private multi-domain professional network. Open to all. Selective by design. Built on expertise, sustained by community.</p>
-    </div>
-    <div class="f-col">
-      <div class="f-col-title">Verticals</div>
-      <a onclick="goto('verticals')">MY Advisory</a>
-      <a onclick="goto('verticals')">MY Consultancy</a>
-      <a onclick="goto('verticals')">MY Concierge</a>
-      <a onclick="goto('verticals')">MY Help</a>
-    </div>
-    <div class="f-col">
-      <div class="f-col-title">Network</div>
-      <a onclick="goto('founding')">Founding Members</a>
-      <a onclick="goto('network')">ACG</a>
-      <a onclick="goto('network')">Network Members</a>
-      <a onclick="goto('join')">Apply</a>
-      <a onclick="goto('network')">Membership Fees</a>
-    </div>
-    <div class="f-col">
-      <div class="f-col-title">Contact</div>
-      <a href="mailto:info@mahayukti.com">info@mahayukti.com</a>
-      <a href="mailto:info@mahayukti.com?subject=Founding Member Application">Founding Members</a>
-      <a href="mailto:info@mahayukti.com?subject=MY Concierge — Enquiry">MY Concierge</a>
-      <a href="http://mahayukti.com" target="_blank">mahayukti.com</a>
-    </div>
-  </div>
-  <div class="f-bottom">
-    <div class="f-copy">© 2026 <span>MahaYukti</span>. Private Professional Network. All rights reserved.</div>
-    <div class="f-legal">
-      <a>Privacy Policy</a>
-      <a>Terms of Use</a>
-      <a>Confidentiality</a>
-    </div>
-  </div>
-</footer>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// CURSOR
-const cur=document.getElementById('cur'),curR=document.getElementById('curR');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function a(){rx+=(mx-rx)*.11;ry+=(my-ry)*.11;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(a);})();
-
-// NAV SCROLL
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('stuck',scrollY>50));
-
-// MOBILE NAV
-function toggleMob(){
-  document.getElementById('mob-nav').classList.toggle('open');
-  document.getElementById('mob-overlay').classList.toggle('show');
-}
-
-// PAGE ROUTER
-const pages={home:'pg-home',about:'pg-about',network:'pg-network',verticals:'pg-verticals',founding:'pg-founding',join:'pg-join',blog:'pg-blog',contact:'pg-contact'};
-function goto(name){
-  Object.values(pages).forEach(id=>{const el=document.getElementById(id);if(el)el.classList.remove('active');});
-  const t=document.getElementById(pages[name]);
-  if(t){t.classList.add('active');window.scrollTo({top:0,behavior:'instant'});}
-  document.querySelectorAll('.nav-links a[data-p]').forEach(a=>a.classList.toggle('active',a.dataset.p===name));
-  setTimeout(initReveal,80);
-  if(name==='blog'&&!blogLoaded){loadBlogPosts();}
-}
-
-// REVEAL
-function initReveal(){
-  const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:0.1});
-  document.querySelectorAll('.page.active .rv').forEach(el=>{el.classList.remove('in');obs.observe(el);});
-}
-initReveal();
-
-// HOVER CURSOR GROW
-document.addEventListener('mouseover',e=>{
-  if(e.target.closest('a,button,.v-card,.contact-card,.founding-card,.layer,.vf')){document.body.style.setProperty('--cw','18px');}
-  else{document.body.style.removeProperty('--cw');}
-});
-
-
-// Google Sheet ID: 1QeLegeJQ67K3IasAp3vqlAXJ_SZZeHlJxy2u1fIQ0Ck
-const JURL='https://script.google.com/macros/s/AKfycbwTquqtQEk9d-uvvz7yv2RKVtHqbs6QSDyKoXG1slCu8W8JS80mPFolxhbwZyODdFUeSQ/exec';
-let jCS=1,jTR='member',jIN=[];
-function jST(t){jTR=t;['m','p'].forEach(x=>{const el=document.getElementById('jTC'+x);if(el){el.classList.toggle('sel',x==='m'?t==='member':t==='participant');el.querySelector('.jtcc').textContent=((x==='m'&&t==='member')||(x==='p'&&t==='participant'))?'✓':'';}});const isMember=t==='member';document.getElementById('jIBL').textContent=isMember?'Network Member includes':'Network Participant includes';document.getElementById('jIBB').textContent=isMember?'Verified credential · Directory listing · Lead & referral routing · MY Help community · Cross-domain peer connections · Path to Participant and ACG':'Everything in Member · Active service listing · Domain forums · Priority referral routing · MY Help mentoring · Client visibility · ACG consideration';}
-function jTI(el){el.classList.toggle('sel');const t=el.textContent.trim();jIN=el.classList.contains('sel')?[...new Set([...jIN,t])]:jIN.filter(i=>i!==t);}
-function jN(f){if(!jV(f))return;jGo(f+1);if(f+1===5)jBR();}
-function jPR(f){jGo(f-1);}
-function jGo(n){document.querySelectorAll('.j-step').forEach(s=>s.classList.remove('active'));const s=document.getElementById('jS'+n);if(s)s.classList.add('active');document.querySelectorAll('.j-tab').forEach((t,i)=>{t.classList.remove('active','done');if(i+1<n)t.classList.add('done');if(i+1===n)t.classList.add('active');});const pf=document.getElementById('jP');if(pf)pf.style.width=(n/5*100)+'%';jCS=n;document.querySelector('.j-fb')?.scrollIntoView({behavior:'smooth',block:'start'});}
-function jV(n){let ok=true;const F={2:[{id:'jFN',w:'jFw1'},{id:'jLN',w:'jFw2'},{id:'jEM',w:'jFw3',em:true},{id:'jCT',w:'jFw4'}],3:[{id:'jDO',w:'jFw5'},{id:'jRO',w:'jFw6'},{id:'jEX',w:'jFw7'}],4:[{id:'jAB',w:'jFw8'}]};if(F[n])F[n].forEach(f=>{const el=document.getElementById(f.id),w=document.getElementById(f.w);if(!el?.value||(f.em&&!el.value.includes('@'))){w?.classList.add('err');ok=false;}else w?.classList.remove('err');});if(n===4&&jIN.length===0){showToast('Please select at least one intent.');ok=false;}if(!ok)showToast('Please fill in all required fields.');return ok;}
-function jG(id){return document.getElementById(id)?.value||'';}
-function jBR(){const d={'Track':jTR==='member'?'○ Network Member':'◇ Network Participant','Name':jG('jFN')+' '+jG('jLN'),'Email':jG('jEM'),'Phone':jG('jPH')||'—','Location':[jG('jCT'),jG('jST2'),jG('jCO')].filter(Boolean).join(', '),'LinkedIn':jG('jLI')||'—','Domain':jG('jDO'),'Role':jG('jRO'),'Organisation':jG('jOR')||'—','Experience':jG('jEX'),'Intent':jIN.join(', ')||'—'};document.getElementById('jRC').innerHTML=Object.entries(d).map(([k,v])=>`<div class="j-rr"><div class="j-rk">${k}</div><div class="j-rv">${v}</div></div>`).join('');}
-async function jSub(){if(!document.getElementById('jAG').checked){showToast('Please confirm the declaration.');return;}const btn=document.getElementById('jSB');btn.textContent='Submitting...';btn.disabled=true;const now=new Date();const sid='MY-'+now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+Math.random().toString(36).substr(2,6).toUpperCase();const p={submissionId:sid,submissionDate:now.toISOString(),track:jTR==='member'?'Network Member':'Network Participant',firstName:jG('jFN'),lastName:jG('jLN'),fullName:jG('jFN')+' '+jG('jLN'),email:jG('jEM'),phone:jG('jPH'),city:jG('jCT'),state:jG('jST2'),country:jG('jCO'),linkedin:jG('jLI'),domain:jG('jDO'),role:jG('jRO'),organisation:jG('jOR'),experience:jG('jEX'),qualification:jG('jQU'),intent:jIN.join(', '),about:jG('jAB'),otherNotes:jG('jOT'),source:'Website Form',status:'New'};try{await fetch(JURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)});}catch(e){}document.querySelectorAll('.j-step').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.j-tab').forEach(t=>t.classList.add('done'));const pf=document.getElementById('jP');if(pf)pf.style.width='100%';document.getElementById('jSID').textContent='Submission ID: '+sid;document.getElementById('jSUC').classList.add('show');showToast('Application submitted — we will be in touch within 5–7 working days.');}
-
-// ── FAQ ───────────────────────────────────────────────────────────────────────
-function toggleFaq(el){
-  const item=el.closest('.faq-item');
-  const wasOpen=item.classList.contains('open');
-  document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
-  if(!wasOpen)item.classList.add('open');
-}
-
-
-// ── JOIN FORM ─────────────────────────────────────────────────────────────────
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbwTquqtQEk9d-uvvz7yv2RKVtHqbs6QSDyKoXG1slCu8W8JS80mPFolxhbwZyODdFUeSQ/exec';
-let jCurStep=1;
-function jGoStep(n){
-  if(n===jCurStep)return;
-  if(n>jCurStep){
-    if(jCurStep===2){
-      if(!document.getElementById('j-fname').value.trim()){showToast('Please enter your first name.');return;}
-      if(!document.getElementById('j-email').value.trim()){showToast('Please enter your email address.');return;}
-      if(!document.getElementById('j-city').value.trim()){showToast('Please enter your city.');return;}
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
     }
-    if(jCurStep===3){
-      if(!document.getElementById('j-domain').value){showToast('Please select your domain.');return;}
-      if(!document.getElementById('j-role').value.trim()){showToast('Please enter your current role.');return;}
-      if(!document.getElementById('j-exp').value){showToast('Please select your years of experience.');return;}
+    animRing();
+
+    document.querySelectorAll('a, button, .pill, .city-tag, .feature-card').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        ring.style.width = '56px';
+        ring.style.height = '56px';
+        ring.style.borderColor = 'rgba(201,150,58,0.7)';
+        cursor.style.transform = 'translate(-50%,-50%) scale(1.5)';
+      });
+      el.addEventListener('mouseleave', () => {
+        ring.style.width = '36px';
+        ring.style.height = '36px';
+        ring.style.borderColor = 'rgba(201,150,58,0.4)';
+        cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      });
+    });
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      observer.observe(el);
+    });
+
+    function handleNotify() {
+      const input = document.querySelector('.notify-input');
+      const btn = document.querySelector('.notify-btn');
+      if (!input.value || !input.value.includes('@')) {
+        input.style.borderColor = 'rgba(123,31,58,0.6)';
+        setTimeout(() => input.style.borderColor = 'rgba(201,150,58,0.2)', 1200);
+        return;
+      }
+      btn.textContent = '✓ You\'re in';
+      btn.style.background = 'rgba(201,150,58,0.2)';
+      btn.style.color = 'var(--gold)';
+      btn.style.borderColor = 'rgba(201,150,58,0.3)';
+      input.disabled = true;
+      btn.disabled = true;
     }
-    if(jCurStep===4){
-      if(!document.getElementById('j-intent').value){showToast('Please select your primary intent.');return;}
-      if(!document.getElementById('j-about').value.trim()){showToast('Please tell us about yourself.');return;}
-    }
-  }
-  document.getElementById('jfs'+jCurStep).classList.remove('act');
-  for(let i=1;i<=5;i++){
-    const dot=document.getElementById('jdot'+i);
-    if(!dot)continue;
-    dot.classList.remove('act','done');
-    if(i<n)dot.classList.add('done');
-    if(i===n)dot.classList.add('act');
-    if(i<5){const line=document.getElementById('jline'+i);if(line)line.classList.toggle('done',i<n);}
-  }
-  jCurStep=n;
-  const step=document.getElementById('jfs'+n);
-  if(step)step.classList.add('act');
-  if(n===5)jBuildReview();
-  const top=document.getElementById('jstepper');
-  if(top)window.scrollTo({top:top.offsetTop-120,behavior:'smooth'});
-}
-function jSelTrack(t){
-  document.getElementById('jtc-m').classList.toggle('sel',t==='member');
-  document.getElementById('jtc-p').classList.toggle('sel',t==='participant');
-  document.getElementById('j-track').value=t;
-}
-function jBuildReview(){
-  const sections=[
-    {title:'TRACK',rows:[['Track',document.getElementById('j-track').value==='member'?'Network Member':'Network Participant']]},
-    {title:'PERSONAL',rows:[
-      ['Name',(document.getElementById('j-fname').value+' '+document.getElementById('j-lname').value).trim()],
-      ['Email',document.getElementById('j-email').value],
-      ['Phone',document.getElementById('j-phone').value||'—'],
-      ['Location',[document.getElementById('j-city').value,document.getElementById('j-state').value,document.getElementById('j-country').value].filter(Boolean).join(', ')],
-      ['LinkedIn',document.getElementById('j-linkedin').value||'—'],
-    ]},
-    {title:'PROFESSIONAL',rows:[
-      ['Domain',document.getElementById('j-domain').value||'—'],
-      ['Role',document.getElementById('j-role').value||'—'],
-      ['Organisation',document.getElementById('j-org').value||'—'],
-      ['Experience',document.getElementById('j-exp').value||'—'],
-    ]},
-    {title:'INTENT',rows:[
-      ['Intent',document.getElementById('j-intent').value||'—'],
-      ['About',(document.getElementById('j-about').value||'').substring(0,100)+((document.getElementById('j-about').value||'').length>100?'...':'')],
-    ]},
-  ];
-  let out='';
-  sections.forEach(s=>{
-    out+=`<div class="rt-section">${s.title}</div>`;
-    s.rows.forEach(r=>out+=`<div class="rt-row"><div class="rt-key">${r[0]}</div><div class="rt-val">${r[1]||'—'}</div></div>`);
-  });
-  document.getElementById('j-review').innerHTML=out;
-}
-async function jSubmit(){
-  if(!document.getElementById('j-agree').checked){showToast('Please confirm the declaration to submit.');return;}
-  const btn=document.getElementById('j-submit-btn');
-  btn.textContent='Submitting...';btn.disabled=true;
-  const fname=document.getElementById('j-fname').value.trim();
-  const lname=document.getElementById('j-lname').value.trim();
-  const now=new Date();
-  const subId='MY-'+now.getFullYear()+String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+'-'+Math.random().toString(36).substr(2,6).toUpperCase();
-  const payload={
-    submissionId:subId,submissionDate:now.toISOString(),
-    track:document.getElementById('j-track').value==='member'?'Network Member':'Network Participant',
-    firstName:fname,lastName:lname,fullName:fname+' '+lname,
-    email:document.getElementById('j-email').value,phone:document.getElementById('j-phone').value,
-    city:document.getElementById('j-city').value,state:document.getElementById('j-state').value,
-    country:document.getElementById('j-country').value,linkedin:document.getElementById('j-linkedin').value,
-    domain:document.getElementById('j-domain').value,role:document.getElementById('j-role').value,
-    organisation:document.getElementById('j-org').value,experience:document.getElementById('j-exp').value,
-    qualification:document.getElementById('j-qual').value,intent:document.getElementById('j-intent').value,
-    about:document.getElementById('j-about').value,otherNotes:document.getElementById('j-other').value,
-    source:'Website Form',status:'New'
-  };
-  try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}
-  catch(e){console.log(e);}
-  document.querySelectorAll('#pg-join .jstep').forEach(s=>s.classList.remove('act'));
-  document.querySelectorAll('#pg-join .fp-head,#pg-join .fp-foot').forEach(s=>{if(s)s.style.display='none';});
-  const suc=document.getElementById('jsuccess');
-  if(suc){suc.style.display='block';document.getElementById('jsuccess-id').textContent='Submission ID: '+subId;}
-  document.querySelectorAll('#jstepper .st-dot').forEach(d=>d.classList.add('done'));
-  document.querySelectorAll('#jstepper .st-line').forEach(l=>l.classList.add('done'));
-  showToast('Application submitted — we will be in touch within 5–7 working days.');
-}
-function jToggleFaq(el){
-  const item=el.closest('.faq2-item');
-  const was=item.classList.contains('open');
-  document.querySelectorAll('.faq2-item').forEach(i=>i.classList.remove('open'));
-  if(!was)item.classList.add('open');
-}
-
-// KEYBOARD
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){document.getElementById('mob-nav').classList.remove('open');document.getElementById('mob-overlay').classList.remove('show');}});
-
-// TOAST
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
-
-// ── BLOG DYNAMIC ──────────────────────────────────────────────────────────────
-const BLOG_API='https://script.google.com/macros/s/AKfycbzCmFO-SCSZ-tAh4vU5lBRy6UJ3xJMxJikpdCEaUIMPOEOvoOuZIVfoQG6Et8doJ_yD/exec';
-let blogPosts=[],blogLoaded=false,currentPost=null;
-
-async function loadBlogPosts(){
-  const sk=document.getElementById('blogSkeleton');
-  const gr=document.getElementById('blogGrid');
-  const er=document.getElementById('blogError');
-  if(sk)sk.style.display='grid';
-  if(gr)gr.style.display='none';
-  if(er)er.style.display='none';
-  try{
-    const res=await fetch(BLOG_API+'?t='+Date.now());
-    const data=await res.json();
-    if(data.status==='success'&&data.posts&&data.posts.length>0){blogPosts=data.posts;renderBlogGrid();}
-    else throw new Error('empty');
-  }catch(e){blogPosts=getBlogFallback();renderBlogGrid();}
-}
-
-function renderBlogGrid(){
-  const grid=document.getElementById('blogGrid');
-  if(!grid)return;
-  grid.innerHTML='';
-  blogPosts.forEach((post,i)=>{
-    const card=document.createElement('div');
-    card.className='b-card rv'+(i===0?' b-featured':'');
-    card.onclick=()=>openPost(post.id);
-    if(i===0){
-      card.innerHTML=`<div class="b-card-top"><div class="b-cat">${bEsc(post.category)}</div><div class="b-title">${bEsc(post.title)}</div><div class="b-excerpt">${bEsc(post.excerpt)}</div><div class="b-meta"><span class="b-author">Admin · MahaYukti</span><span class="b-date">${bEsc(post.date)}</span><span class="b-read">${bEsc(post.readTime)} →</span></div></div><div class="b-featured-visual"><div class="b-feat-icon">◈</div></div>`;
-    }else{
-      card.innerHTML=`<div class="b-card-top"><div class="b-cat">${bEsc(post.category)}</div><div class="b-title">${bEsc(post.title)}</div><div class="b-excerpt">${bEsc(post.excerpt)}</div></div><div class="b-meta"><span class="b-author">Admin · MahaYukti</span><span class="b-date">${bEsc(post.date)}</span><span class="b-read">${bEsc(post.readTime)} →</span></div>`;
-    }
-    grid.appendChild(card);
-  });
-  const sk=document.getElementById('blogSkeleton');
-  if(sk)sk.style.display='none';
-  grid.style.display='grid';
-  setTimeout(initReveal,80);
-  blogLoaded=true;
-}
-
-function bEsc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
-
-function openPost(id){
-  const post=blogPosts.find(p=>p.id===id);
-  if(!post)return;
-  currentPost=post;
-  const related=blogPosts.filter(p=>p.id!==id).slice(0,3);
-  const relHTML=related.length?`<div class="post-related"><div class="post-related-title">More from MahaYukti</div><div class="post-related-grid">${related.map(r=>`<div class="related-card" onclick="openPost('${r.id}')"><div class="related-cat">${bEsc(r.category)}</div><div class="related-title">${bEsc(r.title)}</div></div>`).join('')}</div></div>`:'';
-  document.getElementById('postContent').innerHTML=`
-    <div class="post-cat-label">${bEsc(post.category)}</div>
-    <h1 class="post-h1">${bEsc(post.title)}</h1>
-    <div class="post-meta-bar">
-      <span>Admin · MahaYukti</span><span class="post-meta-dot">·</span>
-      <span>${bEsc(post.date)}</span><span class="post-meta-dot">·</span>
-      <span>${bEsc(post.readTime)}</span>
-    </div>
-    <div class="post-content">${post.body}</div>
-    <div class="post-cta">
-      <p class="eyebrow" style="text-align:center">Join MahaYukti</p>
-      <h3 style="font-family:var(--serif);font-size:28px;font-weight:700;color:var(--white);text-align:center;margin-bottom:10px;">The network is open.<br><em style="color:var(--gold)">Membership is earned.</em></h3>
-      <p style="font-size:14px;color:var(--muted);text-align:center;margin-bottom:20px;max-width:440px;margin-left:auto;margin-right:auto;">Every domain. Every geography. Every experience level.</p>
-      <div class="post-cta-btns">
-        <button class="btn btn-gold btn-sm" onclick="closePost();goto('join')">Apply Now</button>
-        <a class="btn btn-outline btn-sm" href="mailto:info@mahayukti.com">Write to Admin</a>
-      </div>
-    </div>
-    ${relHTML}`;
-  const overlay=document.getElementById('postOverlay');
-  overlay.classList.add('open');
-  overlay.scrollTop=0;
-  document.body.style.overflow='hidden';
-  overlay.onscroll=function(){
-    const pct=Math.min(100,(overlay.scrollTop/(overlay.scrollHeight-overlay.clientHeight))*100)||0;
-    document.getElementById('postProgress').style.width=pct+'%';
-  };
-}
-
-function closePost(){
-  const overlay=document.getElementById('postOverlay');
-  if(overlay)overlay.classList.remove('open');
-  document.body.style.overflow='';
-  currentPost=null;
-  const prog=document.getElementById('postProgress');
-  if(prog)prog.style.width='0%';
-}
-
-function getBlogFallback(){return[
-  {id:'p1',category:'Network Philosophy',title:'Why Indian professionals are the most under-networked in the world',excerpt:'India produces more engineers, lawyers, doctors, and CAs than almost any country on earth. Yet when it comes to professional networks that actually work — we are decades behind.',date:'14 May 2026',readTime:'6 min read',body:'<p>India produces more engineers, lawyers, doctors, and chartered accountants than almost any country on earth. We graduate hundreds of thousands of professionals every year. By raw numbers, we should have the most powerful professional ecosystem in the world.</p><p>We do not. And the reason is not capability. It is infrastructure.</p><h2>The Problem Nobody Talks About</h2><p>In London, a newly qualified barrister knows that after five years of practice, they will have a network of solicitors, judges, clients, and peers that spans the city and beyond. Not because they are exceptional. Because the infrastructure exists and functions.</p><p>In Mumbai, a newly qualified advocate with equal or superior ability starts from scratch. Their network is whoever they happened to sit next to in law school, whoever they clerked under, and whoever their family already knew. And so the most talented professionals spend the first decade of their careers building what their counterparts in the West inherit on arrival.</p><blockquote><p>The most powerful professional networks are the ones no single person owns — but every member builds.</p></blockquote><h2>The Cross-Domain Gap</h2><p>A CA in Lucknow who is brilliant at forensic accounting has no infrastructure to reach the corporate litigation lawyer in Bangalore who needs exactly that expertise. A startup founder in Coimbatore who needs a CA, a lawyer, and a banker — coordinated and vetted — has no single place to find all three. These professionals are not missing expertise. They are missing each other.</p><h2>What Changes Now</h2><p>MahaYukti is built on a simple premise: Indian professionals deserve the same private, cross-domain network infrastructure that the West has long taken for granted. Not a job board. Not a freelance marketplace. A private professional network — by professionals, for professionals, of professionals.</p>'},
-  {id:'p2',category:'The Network',title:'The difference between a contact and a connection',excerpt:'Most professionals have hundreds of contacts. Very few have genuine connections. The distinction determines everything about whether a network actually works for you.',date:'13 May 2026',readTime:'4 min read',body:'<p>Most professionals confuse contacts with connections. They are not the same thing. And understanding the difference changes how you think about every professional network you are ever part of.</p><h2>A Contact Is Someone You Know Of</h2><p>You met them at a conference. You connected on LinkedIn. You have their card somewhere. A contact is a weak tie. Useful in aggregate. Unreliable individually.</p><h2>A Connection Is Someone Who Acts</h2><p>A connection is someone who, when you need something, picks up the phone. Who refers you without being asked. Who thinks of you when an opportunity arises. Connections are built on trust, mutual value, and time. They are rare. They are irreplaceable.</p><blockquote><p>The quality of your professional life is determined almost entirely by the quality of your connections — not the quantity of your contacts.</p></blockquote><h2>What MahaYukti Is Built For</h2><p>MahaYukti is not built to maximise your contact list. It is built to give you ten genuine connections you would not otherwise have — across domains, across geographies, across experience levels — that change what you are able to do professionally. A lawyer who connects with a forensic CA and a cybersecurity expert does not just have two new contacts. They have the foundation for a mandate they could not have delivered alone.</p>'},
-  {id:'p3',category:'MY Concierge',title:'What MY Concierge does — and who it is for',excerpt:'Some situations require more than a single professional. They require a coordinated network — discreet and available at short notice — that knows exactly who to call.',date:'12 May 2026',readTime:'5 min read',body:'<p>Most professional services operate in silos. You hire a lawyer for a legal matter. You hire a CA for a financial one. Each works in isolation. The client carries the coordination burden alone. Some situations are too complex, too sensitive, or too time-critical for that model to work.</p><h2>The Problem MY Concierge Solves</h2><p>Consider a scenario. A business family in Ahmedabad is facing a hostile acquisition attempt. They need a corporate lawyer, a CA to analyse the financial implications, a strategic advisor, and a public affairs specialist — all coordinated, confidential, and fast. MY Concierge exists to answer that call.</p><blockquote><p>Some situations require more than expertise. They require discretion, speed, and the right people — coordinated.</p></blockquote><h2>Who It Is For</h2><p>MY Concierge is not a public service. It is accessible to MahaYukti members and referred clients only. The first conversation is always confidential. It is for the situations that cannot wait. The matters that cannot be posted on a public platform. The needs that require someone to make the right calls — quietly, quickly, and correctly.</p>'},
-  {id:'p4',category:'Founding Members',title:'The mango tree — why founding membership is not a job offer',excerpt:'When we tell people that founding membership carries no salary — most people pause. A few lean in. Those few are the ones we are looking for.',date:'11 May 2026',readTime:'4 min read',body:'<p>When we explain founding membership to most professionals, we watch a specific thing happen. They hear no salary and their attention shifts. They are still polite. But they are already looking for the exit. A few people hear the same words and lean forward. Those are the ones we are building with.</p><h2>What Founding Membership Actually Is</h2><p>Founding membership is not a job. It is not a gig. It is an invitation to plant something — with the understanding that the person who plants the tree is not the same as the person who simply buys the fruit later. The founding members of MahaYukti are helping build the legal framework, the technology infrastructure, and the financial architecture of a network that will serve thousands of professionals.</p><blockquote><p>The person who plants the mango tree is not the same as the person who simply buys the fruit later.</p></blockquote><h2>What We Are Actually Asking</h2><p>No commitment. No non-compete. No exclusivity. Founding membership is a lifetime designation — on your terms, always. Contribute when you want. Step back when you need to. The tag stays regardless. What we are asking for is genuine alignment. The belief that India\'s professionals deserve better infrastructure. The willingness to help build it.</p>'},
-  {id:'p5',category:'Network Structure',title:'Five layers one ecosystem — how MahaYukti is organised',excerpt:'Most networks are flat. Everyone has the same access. MahaYukti is built differently — and the difference matters more than you might expect.',date:'10 May 2026',readTime:'5 min read',body:'<p>Most professional networks make the same structural mistake. They treat all members as equal. Same access. Same visibility. The logic is democratic — but the result is mediocre. When everyone has access to everything, nothing has value. When the most junior member and the most senior professional see the same platform, the most senior professional leaves.</p><h2>Why Layers Matter</h2><p>MahaYukti is built on five layers. Not as hierarchy for its own sake — but because different professionals at different stages of their journey and contribution need and deserve different things from a network.</p><blockquote><p>The path upward is earned — never bought. That is what makes each layer mean something.</p></blockquote><h2>What Each Layer Earns You</h2><p>Every layer is earned. You start as a Network Member. You demonstrate value, contribution, and professional excellence. You become a Participant. Outstanding Participants are invited by the Council to the ACG. Exceptional ACG members become Council members. Money does not determine your layer. Contribution does. That is the design.</p>'},
-  {id:'p6',category:'MY Advisory',title:'What a cross-domain mandate actually looks like',excerpt:'The most valuable professional work rarely fits into a single domain. A corporate acquisition needs a lawyer, a CA, a market researcher, and a strategist. Here is how MahaYukti coordinates all four.',date:'9 May 2026',readTime:'4 min read',body:'<p>Most professional engagements are artificially constrained by domain. A client comes to a lawyer. The lawyer handles the legal. The CA handles the financial. The consultant handles the strategy. Each works in isolation. The client pays three retainers. Nobody sees the full picture. The best outcomes require all three simultaneously. That is what MY Advisory is built to deliver.</p><h2>A Real Example</h2><p>A mid-sized corporate group in Pune is evaluating the acquisition of a competitor. The mandate involves legal due diligence on the target company\'s contracts and compliance history, financial forensics on the target\'s accounts and off-balance-sheet liabilities, market intelligence on the target\'s actual competitive position, and strategic advisory on whether the acquisition makes sense at the proposed valuation. Four disciplines. Four domain experts. One coordinated mandate.</p><blockquote><p>The most valuable mandates are never single-domain. They require a network, not just a professional.</p></blockquote><h2>What This Means for ACG Members</h2><p>ACG members access mandates they could not access alone. A forensic CA who is exceptional at their work but has limited business development reach is suddenly visible to every corporate, political, and institutional client that engages MahaYukti. The network becomes their business development function — and they keep everything they earn from their professional work.</p>'}
-];}
-</script>
+  </script>
 </body>
 </html>
